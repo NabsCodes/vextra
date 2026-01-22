@@ -14,7 +14,7 @@ const funnelDisplay = Funnel_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Vextra Limited | Coming Soon",
+  title: "Vextra Limited - Built to Work | Coming Soon",
   description:
     "We build simple, reliable digital products that solve real problems for communities, governments, and businesses across Nigeria and Africa. Built to Work.",
   keywords: [
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://vextralimited.com",
     siteName: "Vextra Limited",
-    title: "Vextra Limited | Dependable Digital Products That Work",
+    title: "Vextra Limited - Built to Work",
     description:
       "We build simple, reliable digital products that solve real problems for communities, governments, and businesses across Nigeria and Africa.",
     images: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vextra Limited | Dependable Digital Products That Work",
+    title: "Vextra Limited - Built to Work",
     description:
       "We build simple, reliable digital products that solve real problems for communities, governments, and businesses across Nigeria and Africa.",
     images: ["/Full Color Logo.png"],
