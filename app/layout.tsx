@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Funnel_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geist = Geist({
@@ -68,6 +69,7 @@ export default function RootLayout({
         className={`${geist.variable} ${funnelDisplay.variable} font-sans antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
