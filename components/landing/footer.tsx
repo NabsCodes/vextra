@@ -80,7 +80,7 @@ export function SiteFooter() {
               </span>
               <div className="flex flex-col gap-3">
                 <motion.a
-                  href="https://linkedin.com/company/vextra"
+                  href="https://linkedin.com/company/vextrahq"
                   className="flex items-center gap-2 text-white/70 hover:text-vextra-green transition-colors duration-300 text-sm"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -91,7 +91,7 @@ export function SiteFooter() {
                   <span>LinkedIn</span>
                 </motion.a>
                 <motion.a
-                  href="https://x.com/vextra"
+                  href="https://x.com/vextrahq"
                   className="flex items-center gap-2 text-white/70 hover:text-vextra-green transition-colors duration-300 text-sm"
                   target="_blank"
                   rel="noopener noreferrer"

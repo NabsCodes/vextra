@@ -42,22 +42,13 @@ export const metadata: Metadata = {
     title: "Vextra Limited - Built to Work",
     description:
       "We build simple, reliable digital products that solve real problems for communities, governments, and businesses across Nigeria and Africa.",
-    images: [
-      {
-        url: "/Full Color Logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Vextra Limited",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Vextra Limited - Built to Work",
     description:
       "We build simple, reliable digital products that solve real problems for communities, governments, and businesses across Nigeria and Africa.",
-    images: ["/Full Color Logo.png"],
-    creator: "@vextra",
+    creator: "@vextrahq",
   },
   icons: {
     icon: "/icon.png",
