@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
+/* @plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography"; */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Colors */
+  --vextra-green: #14B8A6;
+  --deep-teal: #14A590;
+  --white: #FFFFFF;
+
+  /* Secondary Colors */
+  --charcoal-grey: #2F3A3F;
+  --soft-grey: #D5DADF;
+  --off-white: #F9FAFB;
+
+  /* Semantic */
+  --background: var(--white);
+  --foreground: var(--charcoal-grey);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-vextra-green: var(--vextra-green);
+  --color-deep-teal: var(--deep-teal);
+  --color-charcoal-grey: var(--charcoal-grey);
+  --color-soft-grey: var(--soft-grey);
+  --color-off-white: var(--off-white);
+  --font-sans: var(--font-geist);
+  --font-display: var(--font-funnel-display);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
