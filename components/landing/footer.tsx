@@ -2,8 +2,15 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { FaLinkedin, FaEnvelope } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaInstagram,
+  FaLinkedin,
+  FaPhone,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { FaArrowRight, FaXTwitter } from "react-icons/fa6";
+import { SOCIAL_LINKS } from "@/lib/socials";
 
 export function SiteFooter() {
   return (
@@ -48,9 +55,10 @@ export function SiteFooter() {
               <Image
                 src="/Full Color Logo.png"
                 alt="Vextra Limited"
-                width={120}
-                height={35}
+                width={180}
+                height={54}
                 className="h-8 w-auto mb-4 brightness-0 invert"
+                quality={100}
               />
               <p className="text-white/40 text-sm leading-relaxed max-w-xs">
                 Dependable digital products for Nigeria and Africa.
@@ -71,6 +79,15 @@ export function SiteFooter() {
                 <FaEnvelope className="w-4 h-4" />
                 <span>Email us</span>
               </motion.a>
+              <motion.a
+                href="tel:+2348122353161"
+                className="mt-3 flex items-center gap-2 text-white/70 hover:text-vextra-green transition-colors duration-300 text-sm"
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.3 }}
+              >
+                <FaPhone className="w-4 h-4" />
+                <span>+234 812 235 3161</span>
+              </motion.a>
             </div>
 
             {/* Social */}
@@ -79,28 +96,52 @@ export function SiteFooter() {
                 Social
               </span>
               <div className="flex flex-col gap-3">
-                <motion.a
-                  href="https://linkedin.com/company/vextrahq"
-                  className="flex items-center gap-2 text-white/70 hover:text-vextra-green transition-colors duration-300 text-sm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <FaLinkedin className="w-4 h-4" />
-                  <span>LinkedIn</span>
-                </motion.a>
-                <motion.a
-                  href="https://x.com/vextrahq"
-                  className="flex items-center gap-2 text-white/70 hover:text-vextra-green transition-colors duration-300 text-sm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <FaXTwitter className="w-4 h-4" />
-                  <span>X</span>
-                </motion.a>
+                {SOCIAL_LINKS.map((item) => {
+                  const baseClassName =
+                    "flex items-center gap-2 text-white/70 hover:text-vextra-green transition-colors duration-300 text-sm";
+
+                  if (item.status === "soon") {
+                    return (
+                      <div
+                        key={item.key}
+                        className="flex items-center gap-2 text-white/40 text-sm"
+                        title="WhatsApp coming soon."
+                      >
+                        <FaWhatsapp className="w-4 h-4" />
+                        <span className="inline-flex items-center gap-2">
+                          {item.label}
+                          <span className="text-[10px] tracking-widest uppercase text-white/30">
+                            Soon
+                          </span>
+                        </span>
+                      </div>
+                    );
+                  }
+
+                  const icon =
+                    item.key === "linkedin" ? (
+                      <FaLinkedin className="w-4 h-4" />
+                    ) : item.key === "x" ? (
+                      <FaXTwitter className="w-4 h-4" />
+                    ) : (
+                      <FaInstagram className="w-4 h-4" />
+                    );
+
+                  return (
+                    <motion.a
+                      key={item.key}
+                      href={item.href}
+                      className={baseClassName}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {icon}
+                      <span>{item.label}</span>
+                    </motion.a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -119,9 +160,10 @@ export function SiteFooter() {
               <Image
                 src="/Primary Mark.png"
                 alt=""
-                width={16}
-                height={16}
+                width={24}
+                height={24}
                 className="w-4 h-4"
+                quality={100}
               />
               <span>Est. 2025 &bull; Built to Work</span>
             </div>

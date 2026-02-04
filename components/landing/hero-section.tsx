@@ -17,20 +17,24 @@ export function HeroSection() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <section ref={sectionRef} className="min-h-screen relative overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-linear-to-b from-white/90 via-white/40 to-transparent"
+        aria-hidden
+      />
       {/* Floating geometric accent */}
       <motion.div
         initial={{ opacity: 0, rotate: 0 }}
         animate={{ opacity: 1, rotate: 12 }}
         transition={{ duration: 1.5, delay: 1 }}
-        className="absolute top-24 right-0 md:right-10 pointer-events-none opacity-10"
+        className="pointer-events-none absolute top-24 right-0 opacity-10 md:right-10"
       >
         <Image
           src="/Secondary Mark 02.png"
           alt=""
           width={400}
           height={400}
-          className="w-64 h-64 md:w-96 md:h-96 opacity-10"
+          className="h-64 w-64 opacity-10 md:h-96 md:w-96"
         />
       </motion.div>
 
@@ -41,7 +45,7 @@ export function HeroSection() {
         style={{ opacity, scale }}
         className="relative z-10 px-6 md:px-12 lg:px-20"
       >
-        <div className="min-h-[calc(100vh-200px)] flex flex-col justify-center py-12 pb-24">
+        <div className="flex min-h-[calc(100vh-200px)] flex-col justify-center py-12 pb-24">
           {/* Section indicator */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -62,13 +66,13 @@ export function HeroSection() {
                 initial={{ width: 0 }}
                 animate={{ width: 48 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="h-px bg-vextra-green"
+                className="bg-vextra-green h-px"
               />
               <motion.span
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.7 }}
-                className="text-sm tracking-wide text-charcoal-grey/70"
+                className="text-charcoal-grey/70 text-sm tracking-wide"
               >
                 Coming Soon
               </motion.span>
@@ -76,7 +80,7 @@ export function HeroSection() {
           </motion.div>
 
           {/* Hero headline */}
-          <h1 className="font-display text-[12vw] md:text-[9vw] lg:text-[7vw] font-semibold tracking-tight leading-[0.9] text-charcoal-grey">
+          <h1 className="font-display text-charcoal-grey text-[12vw] leading-[0.9] font-semibold tracking-tight md:text-[9vw] lg:text-[7vw]">
             <motion.span
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -89,7 +93,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="block text-vextra-green"
+              className="text-vextra-green block"
             >
               digital products
             </motion.span>
@@ -108,7 +112,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
-            className="mt-10 md:mt-14 text-lg md:text-xl text-charcoal-grey/60 max-w-xl leading-relaxed"
+            className="text-charcoal-grey/60 mt-10 max-w-xl text-lg leading-relaxed md:mt-14 md:text-xl"
           >
             We build simple, reliable solutions that solve real problems for
             communities, governments, and businesses across Nigeria and Africa.
@@ -122,7 +126,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 1.1 }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center justify-center gap-3 mt-8 px-6 py-3.5 bg-charcoal-grey text-white text-sm font-medium tracking-wide transition-colors hover:bg-deep-teal w-fit"
+            className="bg-charcoal-grey hover:bg-deep-teal mt-8 inline-flex w-fit items-center justify-center gap-3 px-6 py-3.5 text-sm font-medium tracking-wide text-white transition-colors"
           >
             <span>Let&apos;s talk</span>
             <motion.span
@@ -133,7 +137,7 @@ export function HeroSection() {
                 ease: "easeInOut",
               }}
             >
-              <FaArrowRight className="w-4 h-4" />
+              <FaArrowRight className="h-4 w-4" />
             </motion.span>
           </motion.a>
         </div>
