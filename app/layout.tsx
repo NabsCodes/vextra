@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Funnel_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const geist = Geist({
@@ -15,7 +16,10 @@ const funnelDisplay = Funnel_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Vextra Limited - Built to Work | Coming Soon",
+  title: {
+    default: "Vextra Limited - Built to Work | Coming Soon",
+    template: "%s | Vextra Limited",
+  },
   description:
     "We build simple, reliable digital products that solve real problems for communities, governments, and businesses across Nigeria and Africa. Built to Work.",
   keywords: [
@@ -69,6 +73,7 @@ export default function RootLayout({
         className={`${geist.variable} ${funnelDisplay.variable} font-sans antialiased`}
       >
         {children}
+        <Toaster position="bottom-right" />
         <Analytics />
       </body>
     </html>

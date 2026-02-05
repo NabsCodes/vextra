@@ -4,6 +4,7 @@ import { PrinciplesSection } from "@/components/landing/principles-section";
 import { SiteFooter } from "@/components/landing/footer";
 import { ScrollIndicators } from "@/components/landing/scroll-indicators";
 import { WorkInProgress } from "@/components/landing/work-in-progress";
+import { Marquee } from "@/components/landing/marquee";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         <HeroSection />
         <WorkInProgress />
         <MissionSection />
+        <Marquee />
         <PrinciplesSection />
       </main>
       <SiteFooter />

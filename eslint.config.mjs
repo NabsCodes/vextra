@@ -1,24 +1,12 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
 import { defineConfig, globalIgnores } from "eslint/config";
-import prettierConfig from "eslint-config-prettier";
-import js from "@eslint/js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-});
+import eslintConfigPrettier from "eslint-config-prettier/flat";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 
 const eslintConfig = defineConfig([
-  // Next.js recommended configs (need FlatCompat since they're CommonJS)
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-
-  // Prettier config - disables ESLint rules that conflict with Prettier
-  prettierConfig,
+  // Next.js recommended configs (already flat config in Next 16+)
+  ...nextCoreWebVitals,
+  ...nextTypescript,
 
   // TypeScript files configuration
   {
@@ -77,6 +65,9 @@ const eslintConfig = defineConfig([
       ],
     },
   },
+
+  // Prettier config - disables ESLint rules that conflict with Prettier
+  eslintConfigPrettier,
 
   // Global ignores
   globalIgnores([

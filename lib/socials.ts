@@ -27,4 +27,3 @@ export const SOCIAL_LINKS: SocialLink[] = [
   },
   { key: "whatsapp", label: "WhatsApp", status: "soon" },
 ];
-

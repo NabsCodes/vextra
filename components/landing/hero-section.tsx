@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { FaArrowRight } from "react-icons/fa6";
 import { SiteHeader } from "./header";
+import { WaitlistForm } from "./waitlist-form";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -18,6 +18,28 @@ export function HeroSection() {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
+      {/* Dot grid — structural texture */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(47,58,63,0.07) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+        aria-hidden
+      />
+      {/* Ambient glow — drifts slowly behind content */}
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 60% at 70% 75%, rgba(20,184,166,0.1) 0%, transparent 60%)",
+        }}
+        animate={{ x: [0, -45, 30, 0], y: [0, 25, -18, 0] }}
+        transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
+        aria-hidden
+      />
+
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-linear-to-b from-white/90 via-white/40 to-transparent"
         aria-hidden
@@ -30,8 +52,8 @@ export function HeroSection() {
         className="pointer-events-none absolute top-24 right-0 opacity-10 md:right-10"
       >
         <Image
-          src="/Secondary Mark 02.png"
-          alt=""
+          src="/secondary-mark-02.png"
+          alt="secondary mark"
           width={400}
           height={400}
           className="h-64 w-64 opacity-10 md:h-96 md:w-96"
@@ -118,28 +140,15 @@ export function HeroSection() {
             communities, governments, and businesses across Nigeria and Africa.
           </motion.p>
 
-          {/* CTA Button */}
-          <motion.a
-            href="mailto:info@vextralimited.com?subject=Let's%20Talk"
+          {/* Waitlist signup */}
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 1.1 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-charcoal-grey hover:bg-deep-teal mt-8 inline-flex w-fit items-center justify-center gap-3 px-6 py-3.5 text-sm font-medium tracking-wide text-white transition-colors"
+            className="mt-10 md:mt-14"
           >
-            <span>Let&apos;s talk</span>
-            <motion.span
-              animate={{ x: [0, 4, 0] }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <FaArrowRight className="h-4 w-4" />
-            </motion.span>
-          </motion.a>
+            <WaitlistForm />
+          </motion.div>
         </div>
       </motion.main>
     </section>

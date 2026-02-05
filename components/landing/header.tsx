@@ -7,7 +7,7 @@ import { FaArrowRight } from "react-icons/fa6";
 
 export function SiteHeader() {
   return (
-    <header className="relative z-10 px-6 py-6 md:py-8 md:px-12 lg:px-20">
+    <header className="relative z-10 px-6 py-6 md:px-12 md:py-8 lg:px-20">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -15,26 +15,26 @@ export function SiteHeader() {
         className="flex items-center justify-between"
       >
         <Image
-          src="/Full Color Logo.png"
+          src="/full-color-logo.png"
           alt="Vextra Limited"
           width={200}
           height={60}
-          className="h-8 md:h-10 w-auto"
+          className="h-8 w-auto md:h-10"
           quality={100}
           priority
         />
         <motion.a
           href="mailto:info@vextralimited.com"
-          className="text-sm text-charcoal-grey/60 hover:text-vextra-green transition-colors duration-300 flex items-center gap-2"
+          className="text-charcoal-grey/60 hover:text-vextra-green flex items-center gap-2 text-sm transition-colors duration-300"
           whileHover={{ x: -4 }}
           transition={{ duration: 0.3 }}
           aria-label="Email Vextra Limited"
         >
           <span className="hidden sm:inline">info@vextralimited.com</span>
-          <span className="sm:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-charcoal-grey/10 bg-white/70 text-charcoal-grey/70 shadow-sm">
+          <span className="border-charcoal-grey/10 text-charcoal-grey/70 inline-flex h-9 w-9 items-center justify-center rounded-full border bg-white/70 shadow-sm sm:hidden">
             <FaEnvelope className="h-4 w-4" />
           </span>
-          <FaArrowRight className="hidden sm:inline w-4 h-4" />
+          <FaArrowRight className="hidden h-4 w-4 sm:inline" />
         </motion.a>
       </motion.div>
     </header>
