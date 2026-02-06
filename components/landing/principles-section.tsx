@@ -1,30 +1,26 @@
 "use client";
 
 import { motion } from "motion/react";
-import { FaLayerGroup, FaShieldAlt, FaBolt, FaBullseye } from "react-icons/fa";
+import { ArrowUpRight } from "lucide-react";
 
 const principles = [
   {
     title: "Simplicity",
-    icon: FaLayerGroup,
     description:
-      "The best solutions are clear, not complex. We build tools people can actually understand and use.",
+      "The best solutions are clear. We build tools people can actually understand and use immediately.",
   },
   {
     title: "Quality",
-    icon: FaShieldAlt,
     description:
       "We deliver production-ready systems designed to perform reliably at scale with real users.",
   },
   {
     title: "Execution",
-    icon: FaBolt,
     description:
-      "We measure success by what we ship, not what we promise. Delivery is our primary metric.",
+      "We measure success by delivery. What we ship is the only metric that truly matters.",
   },
   {
     title: "Usefulness",
-    icon: FaBullseye,
     description:
       "Every product must make someone's work easier, faster, or more effective.",
   },
@@ -32,7 +28,7 @@ const principles = [
 
 export function PrinciplesSection() {
   return (
-    <section className="bg-off-white relative py-24 md:py-32">
+    <section className="bg-off-white relative py-16 md:py-24">
       <div className="px-6 md:px-12 lg:px-20">
         {/* Section indicator */}
         <motion.div
@@ -40,7 +36,7 @@ export function PrinciplesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-10 md:mb-12"
         >
           <div className="flex items-center gap-4">
             <span className="text-vextra-green font-medium">03</span>
@@ -52,36 +48,42 @@ export function PrinciplesSection() {
         </motion.div>
 
         {/* Principles grid */}
-        <div className="grid gap-8 md:grid-cols-2 md:gap-12">
-          {principles.map((principle, i) => {
-            const Icon = principle.icon;
-            return (
-              <motion.div
-                key={principle.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                whileHover={{ x: 8 }}
-                className="group cursor-default"
-              >
-                <div className="flex items-start gap-6">
-                  <span className="text-charcoal-grey/30 mt-2 text-xs font-medium">
+        <div className="border-charcoal-grey/10 bg-charcoal-grey/10 grid gap-px overflow-hidden border md:grid-cols-2 lg:rounded-xl">
+          {principles.map((principle, i) => (
+            <motion.div
+              key={principle.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="group hover:bg-charcoal-grey relative bg-white transition-all duration-500 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),inset_3px_0_0_0_#14b8a6]"
+            >
+              <div className="flex h-full flex-col justify-between p-6 md:p-8">
+                {/* Header: Number & Title */}
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-charcoal-grey text-xl font-medium transition-colors duration-300 group-hover:text-white md:text-2xl">
+                    {principle.title}
+                  </h3>
+                  <span className="text-charcoal-grey/20 group-hover:text-vextra-green font-mono text-xs font-bold tracking-widest transition-colors duration-300">
                     0{i + 1}
                   </span>
-                  <div className="border-charcoal-grey/10 group-hover:border-vextra-green flex-1 border-l pl-6 transition-colors duration-300">
-                    <Icon className="text-vextra-green/50 group-hover:text-vextra-green mb-4 h-5 w-5 transition-colors duration-300" />
-                    <h3 className="font-display text-vextra-green mb-3 text-2xl font-medium md:text-3xl">
-                      {principle.title}
-                    </h3>
-                    <p className="text-charcoal-grey/60 leading-relaxed">
-                      {principle.description}
-                    </p>
+                </div>
+
+                {/* Body & Action */}
+                <div className="mt-8 md:mt-10">
+                  <p className="text-charcoal-grey/60 max-w-sm text-sm leading-relaxed transition-colors duration-300 group-hover:text-white/70 md:text-base">
+                    {principle.description}
+                  </p>
+
+                  {/* Architectural Accent Line */}
+                  <div className="border-charcoal-grey/10 mt-6 flex items-center justify-between border-t pt-4 transition-colors duration-300 group-hover:border-white/10">
+                    <div className="h-px flex-1 bg-transparent" />
+                    <ArrowUpRight className="text-charcoal-grey/30 group-hover:text-vextra-green h-4 w-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </div>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
