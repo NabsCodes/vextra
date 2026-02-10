@@ -1,15 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Loader2 } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  Info,
+  Loader2,
+} from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { waitlistEmailSchema } from "@/lib/validation/waitlist";
 import type { WaitlistApiResponse } from "@/lib/waitlist/types";
 
 type Feedback = {
-  type: "success" | "info" | "error";
+  type: "success" | "info" | "warning" | "error";
   text: string;
+  assertive?: boolean;
 };
 
 export function WaitlistForm() {
@@ -27,8 +34,8 @@ export function WaitlistForm() {
       setFeedback({
         type: "error",
         text: "Please enter a valid email address.",
+        assertive: true,
       });
-      toast.error("Please enter a valid email address.");
       return;
     }
 
@@ -53,30 +60,41 @@ export function WaitlistForm() {
         setEmail("");
 
         const feedbackType =
-          data.status === "subscribed_new" ? "success" : "info";
+          data.status === "subscribed_new"
+            ? "success"
+            : data.status === "subscribed_pending_email"
+              ? "warning"
+              : "info";
         const successText = data.message;
 
         setFeedback({
           type: feedbackType,
           text: successText,
         });
-
-        if (feedbackType === "success") {
-          toast.success(successText);
-        } else {
-          toast.info(successText);
-        }
         return;
       }
 
       if (!response.ok && !data.success) {
         const errorText =
           data.message || "Something went wrong. Please try again.";
+
+        const feedbackType =
+          data.status === "rate_limited"
+            ? "warning"
+            : data.status === "server_error"
+              ? "error"
+              : "error";
+
         setFeedback({
-          type: "error",
+          type: feedbackType,
           text: errorText,
+          assertive: data.status !== "rate_limited",
         });
-        toast.error(errorText);
+
+        if (data.status === "server_error") {
+          toast.error(errorText);
+        }
+
         return;
       }
 
@@ -84,6 +102,7 @@ export function WaitlistForm() {
       setFeedback({
         type: "error",
         text: fallbackText,
+        assertive: true,
       });
       toast.error(fallbackText);
     } catch (error) {
@@ -91,12 +110,22 @@ export function WaitlistForm() {
       setFeedback({
         type: "error",
         text: "Something went wrong. Please try again.",
+        assertive: true,
       });
       toast.error("Something went wrong. Please try again.");
     } finally {
       setState("idle");
     }
   };
+
+  const feedbackIcon =
+    feedback?.type === "success" ? (
+      <CheckCircle2 className="h-3.5 w-3.5" />
+    ) : feedback?.type === "error" ? (
+      <AlertCircle className="h-3.5 w-3.5" />
+    ) : (
+      <Info className="h-3.5 w-3.5" />
+    );
 
   return (
     <div className="w-full max-w-sm">
@@ -124,14 +153,17 @@ export function WaitlistForm() {
           type="email"
           autoComplete="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (feedback) setFeedback(null);
+          }}
           placeholder="your@email.com"
           required
           disabled={state === "loading"}
           className={cn(
             "border-charcoal-grey/30 w-full border bg-white/50 backdrop-blur-sm",
             "text-charcoal-grey placeholder:text-charcoal-grey/30",
-            "h-12 rounded-full pr-14 pl-5",
+            "h-12 rounded-full pr-36 pl-5 sm:pr-40",
             "text-sm transition-all duration-300 outline-none",
             "focus:border-vextra-green focus:ring-vextra-green/10 focus:bg-white focus:ring-4",
             "disabled:cursor-not-allowed disabled:opacity-50",
@@ -141,35 +173,52 @@ export function WaitlistForm() {
           type="submit"
           disabled={state === "loading" || !email.trim()}
           className={cn(
-            "absolute top-1.5 right-1.5 bottom-1.5 aspect-square cursor-pointer rounded-full",
-            "flex items-center justify-center transition-all duration-300",
-            "focus:ring-vextra-green focus:ring-2 focus:ring-offset-1 focus:outline-none",
+            "absolute top-1 right-1 bottom-1 cursor-pointer rounded-full px-4",
+            "inline-flex min-w-[118px] items-center justify-center gap-1.5",
+            "text-[11px] font-semibold tracking-[0.06em] uppercase",
+            "transition-all duration-300 focus:ring-2 focus:ring-offset-1 focus:outline-none",
+            "focus:ring-vextra-green",
             email.trim()
-              ? "bg-vextra-green shadow-vextra-green/20 hover:bg-deep-teal text-white shadow-lg hover:scale-105 active:scale-95"
-              : "bg-charcoal-grey/5 text-charcoal-grey/20 cursor-not-allowed",
+              ? "bg-vextra-green shadow-vextra-green/20 hover:bg-deep-teal text-white shadow-lg active:scale-[0.98]"
+              : "bg-charcoal-grey/5 text-charcoal-grey/30 cursor-not-allowed",
           )}
         >
           {state === "loading" ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <>
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              Joining...
+            </>
           ) : (
-            <ArrowRight className="h-4 w-4" />
+            <>
+              Join waitlist
+              <ArrowRight className="h-3.5 w-3.5" />
+            </>
           )}
         </button>
       </form>
 
-      {feedback && (
-        <p
-          aria-live="polite"
-          className={cn(
-            "mt-3 text-xs",
-            feedback.type === "error" && "text-red-600",
-            feedback.type === "success" && "text-vextra-green",
-            feedback.type === "info" && "text-charcoal-grey/70",
-          )}
-        >
-          {feedback.text}
-        </p>
-      )}
+      <div className="mt-3 min-h-[22px]">
+        {feedback ? (
+          <p
+            role={feedback.assertive ? "alert" : "status"}
+            aria-live={feedback.assertive ? "assertive" : "polite"}
+            className={cn(
+              "inline-flex items-center gap-1.5 text-xs transition-opacity duration-250",
+              feedback.type === "error" && "text-red-600",
+              feedback.type === "success" && "text-vextra-green",
+              feedback.type === "warning" && "text-amber-700",
+              feedback.type === "info" && "text-charcoal-grey/70",
+            )}
+          >
+            {feedbackIcon}
+            <span>{feedback.text}</span>
+          </p>
+        ) : (
+          <p className="text-charcoal-grey/40 text-xs">
+            We&apos;ll send one confirmation email when your signup is accepted.
+          </p>
+        )}
+      </div>
 
       <p className="text-charcoal-grey/60 mt-3 text-[10px] sm:text-xs">
         By signing up, you agree to our{" "}
