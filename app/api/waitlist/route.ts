@@ -1,26 +1,15 @@
 import { NextResponse } from "next/server";
 import { enforceWaitlistRateLimit } from "@/lib/rate-limit";
-import {
-  WAITLIST_MESSAGES,
-  submitWaitlistSignup,
-  type WaitlistErrorStatus,
-  type WaitlistSuccessStatus,
-} from "@/lib/waitlist/service";
+import { WAITLIST_MESSAGES, submitWaitlistSignup } from "@/lib/waitlist/service";
+import type {
+  WaitlistSuccessStatus,
+  WaitlistErrorStatus,
+  WaitlistSuccessResponse,
+  WaitlistErrorResponse,
+} from "@/lib/waitlist/types";
 import { waitlistRequestSchema } from "@/lib/validation/waitlist";
 
 export const runtime = "nodejs";
-
-type WaitlistSuccessResponse = {
-  success: true;
-  status: WaitlistSuccessStatus;
-  message: string;
-};
-
-type WaitlistErrorResponse = {
-  success: false;
-  status: WaitlistErrorStatus;
-  message: string;
-};
 
 function successResponse(
   status: WaitlistSuccessStatus,

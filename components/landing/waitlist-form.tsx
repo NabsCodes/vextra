@@ -5,34 +5,12 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { waitlistEmailSchema } from "@/lib/validation/waitlist";
+import type { WaitlistApiResponse } from "@/lib/waitlist/types";
 
 type Feedback = {
   type: "success" | "info" | "error";
   text: string;
 };
-
-type WaitlistSuccessStatus =
-  | "subscribed_new"
-  | "already_subscribed"
-  | "subscribed_pending_email";
-
-type WaitlistErrorStatus = "invalid_email" | "rate_limited" | "server_error";
-
-type WaitlistApiSuccessResponse = {
-  success: true;
-  status: WaitlistSuccessStatus;
-  message: string;
-};
-
-type WaitlistApiErrorResponse = {
-  success: false;
-  status: WaitlistErrorStatus;
-  message: string;
-};
-
-type WaitlistApiResponse =
-  | WaitlistApiSuccessResponse
-  | WaitlistApiErrorResponse;
 
 export function WaitlistForm() {
   const [email, setEmail] = useState<string>("");

@@ -10,14 +10,14 @@ const redis = new Redis({
 
 const ipRatelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(10, "1 h"),
+  limiter: Ratelimit.slidingWindow(20, "1 h"),
   analytics: true,
   prefix: "waitlist:ip",
 });
 
 const emailRatelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(3, "1 d"),
+  limiter: Ratelimit.slidingWindow(2, "1 h"),
   analytics: true,
   prefix: "waitlist:email",
 });

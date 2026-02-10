@@ -5,12 +5,12 @@ import { db } from "@/db/client";
 import { waitlistSignups } from "@/db/schema";
 import { getWelcomeEmailHtml } from "@/lib/emails/welcome-email";
 import { getRequiredEnv } from "@/lib/server-env";
+import type { WaitlistSuccessResult } from "@/lib/waitlist/types";
 
 const resend = new Resend(getRequiredEnv("RESEND_API_KEY"));
 const TEAM_NOTIFICATION_EMAIL =
   process.env.WAITLIST_NOTIFICATION_EMAIL || "info@vextralimited.com";
 
-// Waitlist messages for the user
 export const WAITLIST_MESSAGES = {
   subscribed_new: "You're on the list. We'll be in touch soon.",
   already_subscribed:
@@ -18,24 +18,6 @@ export const WAITLIST_MESSAGES = {
   subscribed_pending_email:
     "You're already on the waitlist. Confirmation email is pending.",
 } as const;
-
-// Waitlist statuses for the user
-export type WaitlistSuccessStatus =
-  | "subscribed_new"
-  | "already_subscribed"
-  | "subscribed_pending_email";
-
-// Waitlist error statuses for the user
-export type WaitlistErrorStatus =
-  | "invalid_email"
-  | "rate_limited"
-  | "server_error";
-
-// Waitlist success result for the user
-export type WaitlistSuccessResult = {
-  status: WaitlistSuccessStatus;
-  message: string;
-};
 
 // Resend error like for the user
 type ResendErrorLike = {
@@ -72,6 +54,7 @@ async function markDuplicateSubmission(
     })
     .where(eq(waitlistSignups.normalizedEmail, normalizedEmail))
     .returning({
+      id: waitlistSignups.id,
       welcomeEmailStatus: waitlistSignups.welcomeEmailStatus,
     });
 
@@ -80,6 +63,22 @@ async function markDuplicateSubmission(
       status: "already_subscribed",
       message: WAITLIST_MESSAGES.already_subscribed,
     };
+  }
+
+  if (existingSignup?.welcomeEmailStatus === "failed") {
+    // If a previous welcome attempt failed, try once more on duplicate submit.
+    const retryResult = await retryFailedWelcomeEmail({
+      signupId: existingSignup.id,
+      normalizedEmail,
+    });
+
+    if (retryResult) {
+      return {
+        status: "already_subscribed",
+        message:
+          "You're already on the waitlist. We've re-sent your confirmation email.",
+      };
+    }
   }
 
   return {
@@ -107,6 +106,78 @@ async function sendTeamNotification(email: string): Promise<void> {
       notifyResult.error,
     );
   }
+}
+
+async function retryFailedWelcomeEmail({
+  signupId,
+  normalizedEmail,
+}: {
+  signupId: string;
+  normalizedEmail: string;
+}): Promise<boolean> {
+  const contactResult = await resend.contacts.create({
+    email: normalizedEmail,
+    unsubscribed: false,
+  });
+
+  if (contactResult.error && !isDuplicateResendError(contactResult.error)) {
+    console.error(
+      "[Waitlist Service] Contact re-sync failed during welcome retry:",
+      contactResult.error,
+    );
+  } else if (contactResult.data?.id) {
+    await db
+      .update(waitlistSignups)
+      .set({
+        resendContactId: contactResult.data.id,
+        updatedAt: new Date(),
+      })
+      .where(eq(waitlistSignups.id, signupId));
+  }
+
+  const retryWelcomeResult = await resend.emails.send(
+    {
+      from: "Vextra <hello@vextralimited.com>",
+      to: normalizedEmail,
+      subject: "You're on the Vextra waitlist!",
+      html: await getWelcomeEmailHtml(),
+    },
+    {
+      idempotencyKey: buildIdempotencyKey(
+        "vextra-waitlist-welcome-retry",
+        signupId,
+      ),
+    },
+  );
+
+  if (retryWelcomeResult.error) {
+    console.error(
+      "[Waitlist Service] Welcome retry failed:",
+      retryWelcomeResult.error,
+    );
+
+    await db
+      .update(waitlistSignups)
+      .set({
+        welcomeEmailStatus: "failed",
+        updatedAt: new Date(),
+      })
+      .where(eq(waitlistSignups.id, signupId));
+
+    return false;
+  }
+
+  await db
+    .update(waitlistSignups)
+    .set({
+      welcomeEmailStatus: "sent",
+      welcomeEmailSentAt: new Date(),
+      welcomeEmailProviderId: retryWelcomeResult.data?.id || null,
+      updatedAt: new Date(),
+    })
+    .where(eq(waitlistSignups.id, signupId));
+
+  return true;
 }
 
 export async function submitWaitlistSignup({
@@ -174,12 +245,12 @@ export async function submitWaitlistSignup({
       from: "Vextra <hello@vextralimited.com>",
       to: normalizedEmail,
       subject: "You're on the Vextra waitlist!",
-      html: getWelcomeEmailHtml(),
+      html: await getWelcomeEmailHtml(),
     },
     {
       idempotencyKey: buildIdempotencyKey(
         "vextra-waitlist-welcome",
-        normalizedEmail,
+        signupId,
       ),
     },
   );
