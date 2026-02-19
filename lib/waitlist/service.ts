@@ -3,6 +3,7 @@ import { eq, sql } from "drizzle-orm";
 import { Resend } from "resend";
 import { db } from "@/db/client";
 import { waitlistSignups } from "@/db/schema";
+import { getTeamNotificationEmailHtml } from "@/lib/emails/team-notification-email";
 import { getWelcomeEmailHtml } from "@/lib/emails/welcome-email";
 import { getRequiredEnv } from "@/lib/server-env";
 import type { WaitlistSuccessResult } from "@/lib/waitlist/types";
@@ -10,6 +11,10 @@ import type { WaitlistSuccessResult } from "@/lib/waitlist/types";
 const resend = new Resend(getRequiredEnv("RESEND_API_KEY"));
 const TEAM_NOTIFICATION_EMAIL =
   process.env.WAITLIST_NOTIFICATION_EMAIL || "info@vextralimited.com";
+const TEAM_NOTIFICATION_TIMEZONE =
+  process.env.WAITLIST_NOTIFICATION_TIMEZONE || "Africa/Lagos";
+const TEAM_NOTIFICATION_LOCALE =
+  process.env.WAITLIST_NOTIFICATION_LOCALE || "en-NG";
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -118,12 +123,13 @@ async function sendTeamNotification(
     return true;
   }
 
-  const signedUpAt = signup.createdAt.toISOString();
-  const notificationHtml = `
-    <h2>New waitlist signup</h2>
-    <p><strong>Email:</strong> ${email}</p>
-    <p><strong>Signed up:</strong> ${signedUpAt}</p>
-  `;
+  const notificationHtml = await getTeamNotificationEmailHtml({
+    subscriberEmail: email,
+    signupId,
+    signedUpAt: signup.createdAt,
+    teamTimeZone: TEAM_NOTIFICATION_TIMEZONE,
+    teamLocale: TEAM_NOTIFICATION_LOCALE,
+  });
   const idempotencyKey = buildIdempotencyKey(
     "vextra-waitlist-team-notification",
     signupId,
