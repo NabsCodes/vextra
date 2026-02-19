@@ -128,15 +128,22 @@ export function WaitlistForm() {
     );
 
   return (
-    <div className="w-full max-w-sm">
-      <label
-        htmlFor="waitlist-email"
-        className="text-charcoal-grey/60 mb-3 block text-[11px] font-medium tracking-[0.2em] uppercase"
-      >
+    <div className="w-full max-w-lg rounded-2xl border border-[#1f2c31]/10 bg-white/70 p-4 sm:p-5">
+      <p className="text-charcoal-grey text-base font-semibold tracking-tight">
+        Join our launch list
+      </p>
+      <p className="text-charcoal-grey/60 mt-1 mb-3 text-[11px] font-medium tracking-[0.2em] uppercase">
         Get notified when we launch
+      </p>
+
+      <label htmlFor="waitlist-email" className="sr-only">
+        Email address
       </label>
 
-      <form onSubmit={handleSubmit} className="group relative">
+      <form
+        onSubmit={handleSubmit}
+        className="group relative flex flex-col gap-2 sm:block"
+      >
         {/* Honeypot field - hidden from humans, bots fill it */}
         <input
           type="text"
@@ -163,7 +170,7 @@ export function WaitlistForm() {
           className={cn(
             "border-charcoal-grey/30 w-full border bg-white/50 backdrop-blur-sm",
             "text-charcoal-grey placeholder:text-charcoal-grey/30",
-            "h-12 rounded-full pr-36 pl-5 sm:pr-40",
+            "h-12 rounded-full px-5 sm:pr-40",
             "text-sm transition-all duration-300 outline-none",
             "focus:border-vextra-green focus:ring-vextra-green/10 focus:bg-white focus:ring-4",
             "disabled:cursor-not-allowed disabled:opacity-50",
@@ -173,8 +180,8 @@ export function WaitlistForm() {
           type="submit"
           disabled={state === "loading" || !email.trim()}
           className={cn(
-            "absolute top-1 right-1 bottom-1 cursor-pointer rounded-full px-4",
-            "inline-flex min-w-[118px] items-center justify-center gap-1.5",
+            "cursor-pointer rounded-full px-4",
+            "inline-flex h-11 w-full items-center justify-center gap-1.5 sm:absolute sm:top-1 sm:right-1 sm:bottom-1 sm:h-auto sm:w-auto sm:min-w-[132px]",
             "text-[11px] font-semibold tracking-[0.06em] uppercase",
             "transition-all duration-300 focus:ring-2 focus:ring-offset-1 focus:outline-none",
             "focus:ring-vextra-green",
@@ -190,7 +197,7 @@ export function WaitlistForm() {
             </>
           ) : (
             <>
-              Join waitlist
+              Notify me
               <ArrowRight className="h-3.5 w-3.5" />
             </>
           )}
@@ -215,7 +222,7 @@ export function WaitlistForm() {
           </p>
         ) : (
           <p className="text-charcoal-grey/40 text-xs">
-            We&apos;ll send one confirmation email when your signup is accepted.
+            No spam. One confirmation email when your signup is accepted.
           </p>
         )}
       </div>
