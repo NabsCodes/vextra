@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { SiteHeader } from "./header";
-import { WaitlistForm } from "./waitlist-form";
+import { SiteHeader } from "@/components/landing/header";
+import { WaitlistForm } from "@/components/landing/waitlist-form";
 
 export function HeroSection() {
   return (
