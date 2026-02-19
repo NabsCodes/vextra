@@ -6,6 +6,12 @@ export const welcomeEmailStatusEnum = pgEnum("welcome_email_status", [
   "failed",
 ]);
 
+export const teamNotificationStatusEnum = pgEnum("team_notification_status", [
+  "pending",
+  "sent",
+  "failed",
+]);
+
 export const waitlistSignups = pgTable(
   "waitlist_signups",
   {
@@ -22,6 +28,13 @@ export const waitlistSignups = pgTable(
     }),
     welcomeEmailProviderId: text("welcome_email_provider_id"),
     resendContactId: text("resend_contact_id"),
+    teamNotificationStatus: teamNotificationStatusEnum("team_notification_status")
+      .notNull()
+      .default("pending"),
+    teamNotificationSentAt: timestamp("team_notification_sent_at", {
+      withTimezone: true,
+    }),
+    teamNotificationProviderId: text("team_notification_provider_id"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),

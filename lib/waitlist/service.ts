@@ -11,6 +11,10 @@ const resend = new Resend(getRequiredEnv("RESEND_API_KEY"));
 const TEAM_NOTIFICATION_EMAIL =
   process.env.WAITLIST_NOTIFICATION_EMAIL || "info@vextralimited.com";
 
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const WAITLIST_MESSAGES = {
   subscribed_new: "You're on the list. We'll be in touch soon.",
   already_subscribed:
@@ -87,25 +91,91 @@ async function markDuplicateSubmission(
   };
 }
 
-// Send team notification for the user
-async function sendTeamNotification(email: string): Promise<void> {
-  const notifyResult = await resend.emails.send({
-    from: "Vextra Waitlist <waitlist@vextralimited.com>",
-    to: TEAM_NOTIFICATION_EMAIL,
-    subject: "New Vextra Waitlist Signup",
-    html: `
-      <h2>New waitlist signup</h2>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Signed up:</strong> ${new Date().toLocaleString()}</p>
-    `,
-  });
+// Send team notification with retry and DB tracking
+async function sendTeamNotification(
+  email: string,
+  signupId: string,
+): Promise<boolean> {
+  const MAX_ATTEMPTS = 2;
+  const RETRY_DELAY_MS = 1000;
+  const [signup] = await db
+    .select({
+      teamNotificationStatus: waitlistSignups.teamNotificationStatus,
+      createdAt: waitlistSignups.createdAt,
+    })
+    .from(waitlistSignups)
+    .where(eq(waitlistSignups.id, signupId))
+    .limit(1);
 
-  if (notifyResult.error) {
+  if (!signup) {
     console.error(
-      "[Waitlist Service] Team notification failed:",
+      `[Waitlist Service] Team notification skipped: signup not found (${signupId})`,
+    );
+    return false;
+  }
+
+  if (signup.teamNotificationStatus === "sent") {
+    return true;
+  }
+
+  const signedUpAt = signup.createdAt.toISOString();
+  const notificationHtml = `
+    <h2>New waitlist signup</h2>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Signed up:</strong> ${signedUpAt}</p>
+  `;
+  const idempotencyKey = buildIdempotencyKey(
+    "vextra-waitlist-team-notification",
+    signupId,
+  );
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const notifyResult = await resend.emails.send(
+      {
+        from: "Vextra Waitlist <waitlist@vextralimited.com>",
+        to: TEAM_NOTIFICATION_EMAIL,
+        subject: "New Vextra Waitlist Signup",
+        html: notificationHtml,
+      },
+      { idempotencyKey },
+    );
+
+    if (!notifyResult.error) {
+      await db
+        .update(waitlistSignups)
+        .set({
+          teamNotificationStatus: "sent",
+          teamNotificationSentAt: new Date(),
+          teamNotificationProviderId: notifyResult.data?.id || null,
+          updatedAt: new Date(),
+        })
+        .where(eq(waitlistSignups.id, signupId));
+
+      return true;
+    }
+
+    console.error(
+      `[Waitlist Service] Team notification failed (attempt ${attempt}/${MAX_ATTEMPTS}):`,
       notifyResult.error,
     );
+
+    if (attempt < MAX_ATTEMPTS) {
+      await delay(RETRY_DELAY_MS);
+    }
   }
+
+  await db
+    .update(waitlistSignups)
+    .set({
+      teamNotificationStatus: "failed",
+      updatedAt: new Date(),
+    })
+    .where(eq(waitlistSignups.id, signupId));
+
+  console.error(
+    `[Waitlist Service] Team notification permanently failed for: ${email}`,
+  );
+  return false;
 }
 
 async function retryFailedWelcomeEmail({
@@ -176,6 +246,9 @@ async function retryFailedWelcomeEmail({
       updatedAt: new Date(),
     })
     .where(eq(waitlistSignups.id, signupId));
+
+  // Notify team about the successful retry
+  await sendTeamNotification(normalizedEmail, signupId);
 
   return true;
 }
@@ -272,7 +345,7 @@ export async function submitWaitlistSignup({
       .where(eq(waitlistSignups.id, signupId));
 
     // Send team notification for the user
-    await sendTeamNotification(normalizedEmail);
+    await sendTeamNotification(normalizedEmail, signupId);
 
     return {
       status: "subscribed_pending_email",
@@ -292,7 +365,7 @@ export async function submitWaitlistSignup({
     .where(eq(waitlistSignups.id, signupId));
 
   // Send team notification for the user
-  await sendTeamNotification(normalizedEmail);
+  await sendTeamNotification(normalizedEmail, signupId);
 
   return {
     status: "subscribed_new",

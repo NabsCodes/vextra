@@ -1,23 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import { SiteHeader } from "./header";
 import { WaitlistForm } from "./waitlist-form";
 
 export function HeroSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
-
   return (
-    <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden">
       {/* Dot grid — structural texture */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -63,10 +53,7 @@ export function HeroSection() {
       <SiteHeader />
 
       {/* Hero Content */}
-      <motion.main
-        style={{ opacity, scale }}
-        className="relative z-10 px-6 md:px-12 lg:px-20"
-      >
+      <main className="relative z-10 px-6 md:px-12 lg:px-20">
         <div className="flex min-h-[calc(100vh-200px)] flex-col justify-center py-12 pb-24">
           {/* Section indicator */}
           <motion.div
@@ -150,7 +137,7 @@ export function HeroSection() {
             <WaitlistForm />
           </motion.div>
         </div>
-      </motion.main>
+      </main>
     </section>
   );
 }
