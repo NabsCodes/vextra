@@ -28,9 +28,9 @@ export function SiteHeader() {
           className="text-charcoal-grey/60 hover:text-vextra-green flex items-center gap-2 text-sm transition-colors duration-300"
           whileHover={{ x: -4 }}
           transition={{ duration: 0.3 }}
-          aria-label="Email Vextra Limited"
+          aria-label="Start a project with Vextra Limited"
         >
-          <span className="hidden sm:inline">info@vextralimited.com</span>
+          <span className="hidden sm:inline">Start a Project</span>
           <span className="border-charcoal-grey/10 text-charcoal-grey/70 inline-flex h-9 w-9 items-center justify-center rounded-full border bg-white/70 shadow-sm sm:hidden">
             <FaEnvelope className="h-4 w-4" />
           </span>

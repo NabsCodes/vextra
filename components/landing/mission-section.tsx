@@ -34,7 +34,7 @@ export function MissionSection() {
           className="mb-12"
         >
           <div className="flex items-center gap-4">
-            <span className="text-vextra-green font-medium">02</span>
+            <span className="text-vextra-green font-medium">04</span>
             <div className="bg-vextra-green h-px w-12" />
             <span className="text-sm tracking-wide text-white/60">
               Our Mission
@@ -50,7 +50,7 @@ export function MissionSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-display max-w-4xl text-3xl leading-[1.1] font-semibold tracking-tight md:text-5xl lg:text-6xl"
         >
-          To build dependable digital products that solve{" "}
+          To build dependable software products that solve{" "}
           <span className="text-vextra-green">real problems</span> for real
           people.
         </motion.h2>
@@ -62,10 +62,9 @@ export function MissionSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-8 max-w-2xl text-lg leading-relaxed text-white/60"
         >
-          This mission drives our daily decisions, from product discovery to
-          engineering execution and long-term system support. We aim to be
-          recognized as the company that consistently ships functional,
-          production-quality products.
+          This mission shapes how we design, engineer, and support every
+          product. We aim to be recognized for software that is useful,
+          reliable, and ready for the real world.
         </motion.p>
 
         {/* Brand tagline */}

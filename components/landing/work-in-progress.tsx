@@ -6,7 +6,7 @@ export function WorkInProgress() {
           <span className="bg-charcoal-grey/10 h-px flex-1" />
           <span className="inline-flex items-center gap-2">
             <span className="bg-vextra-green h-1.5 w-1.5 rounded-full" />
-            Work in progress
+            Website launch in progress
           </span>
           <span className="bg-charcoal-grey/10 h-px flex-1" />
         </div>

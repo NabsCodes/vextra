@@ -128,12 +128,15 @@ export function WaitlistForm() {
     );
 
   return (
-    <div className="w-full max-w-lg rounded-2xl border border-[#1f2c31]/10 bg-white/70 p-4 sm:p-5">
+    <div
+      id="website-launch-list"
+      className="w-full max-w-lg rounded-2xl border border-[#1f2c31]/10 bg-white/70 p-4 sm:p-5"
+    >
       <p className="text-charcoal-grey text-base font-semibold tracking-tight">
-        Join our launch list
+        Join the website launch list
       </p>
       <p className="text-charcoal-grey/60 mt-1 mb-3 text-[11px] font-medium tracking-[0.2em] uppercase">
-        Get notified when we launch
+        Get one email when the full site goes live
       </p>
 
       <label htmlFor="waitlist-email" className="sr-only">
@@ -222,7 +225,8 @@ export function WaitlistForm() {
           </p>
         ) : (
           <p className="text-charcoal-grey/40 text-xs">
-            No spam. One confirmation email when your signup is accepted.
+            Open for project inquiries in the meantime. No spam. One email when
+            the site launches.
           </p>
         )}
       </div>

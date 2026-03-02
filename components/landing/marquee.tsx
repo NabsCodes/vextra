@@ -4,15 +4,19 @@ import { motion } from "motion/react";
 
 const items = [
   "Built to Work",
-  "Simplicity",
-  "Nigeria",
+  "Web Apps",
+  "Mobile Apps",
+  "Custom Software",
+  "Global Teams",
+  "Production Ready",
   "Africa",
-  "Dependable",
+  "Nigeria",
   "Real Problems",
+  "APIs & Integrations",
   "Execution",
   "Quality",
-  "Real Solutions",
   "Est. 2025",
+  "Real Solutions",
 ];
 
 export function Marquee() {

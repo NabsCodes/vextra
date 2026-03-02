@@ -5,24 +5,24 @@ import { ArrowUpRight } from "lucide-react";
 
 const principles = [
   {
-    title: "Simplicity",
+    title: "Execution First",
     description:
-      "The best solutions are clear. We build tools people can actually understand and use immediately.",
+      "We prioritize working software over vague strategy and endless decks.",
   },
   {
-    title: "Quality",
+    title: "Production Mindset",
     description:
-      "We deliver production-ready systems designed to perform reliably at scale with real users.",
+      "We build for maintainability, usability, and long-term reliability from the start.",
   },
   {
-    title: "Execution",
+    title: "Real-World Use",
     description:
-      "We measure success by delivery. What we ship is the only metric that truly matters.",
+      "Our focus is practical software that solves operational problems, not just polished demos.",
   },
   {
-    title: "Usefulness",
+    title: "Regional Depth",
     description:
-      "Every product must make someone's work easier, faster, or more effective.",
+      "We work with a global mindset and bring real execution context from Nigeria and Africa.",
   },
 ];
 
@@ -42,9 +42,26 @@ export function PrinciplesSection() {
             <span className="text-vextra-green font-medium">03</span>
             <div className="bg-vextra-green h-px w-12" />
             <span className="text-charcoal-grey/70 text-sm tracking-wide">
-              Core Principles
+              Why Vextra
             </span>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="mb-10 max-w-3xl md:mb-12"
+        >
+          <h2 className="font-display text-charcoal-grey text-3xl leading-[1.05] font-semibold tracking-tight md:text-5xl">
+            Built to Work
+          </h2>
+          <p className="text-charcoal-grey/60 mt-5 max-w-2xl text-lg leading-relaxed">
+            We care less about noise and more about whether the product
+            performs where it matters: in production, under real use, for real
+            people.
+          </p>
         </motion.div>
 
         {/* Principles grid */}

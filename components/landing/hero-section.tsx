@@ -53,7 +53,7 @@ export function HeroSection() {
       <SiteHeader />
 
       {/* Hero Content */}
-      <main className="relative z-10 px-6 md:px-12 lg:px-20">
+      <div className="relative z-10 px-6 md:px-12 lg:px-20">
         <div className="flex min-h-[calc(100vh-200px)] flex-col justify-center py-12 pb-24">
           {/* Section indicator */}
           <motion.div
@@ -62,7 +62,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-10 md:mb-14"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3 md:gap-4">
               <motion.span
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -83,7 +83,23 @@ export function HeroSection() {
                 transition={{ duration: 0.4, delay: 0.7 }}
                 className="text-charcoal-grey/70 text-sm tracking-wide"
               >
-                Coming Soon
+                Web, Mobile &amp; Custom Software
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.9 }}
+                className="text-charcoal-grey/30 text-sm"
+              >
+                &middot;
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 1.0 }}
+                className="text-charcoal-grey/50 text-sm tracking-wide"
+              >
+                Full site launching soon
               </motion.span>
             </div>
           </motion.div>
@@ -121,23 +137,46 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
-            className="text-charcoal-grey/60 mt-10 max-w-xl text-lg leading-relaxed md:mt-14 md:text-xl"
+            className="text-charcoal-grey/60 mt-10 max-w-2xl text-lg leading-relaxed md:text-xl"
           >
-            We build simple, reliable solutions that solve real problems for
-            communities, governments, and businesses across Nigeria and Africa.
+            We design and build web apps, mobile apps, and custom software for
+            teams that need reliable execution in the real world, globally and
+            across Nigeria and Africa.
           </motion.p>
+
+          {/* Service pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.05 }}
+            className="mt-6 flex flex-wrap gap-2 md:mt-8"
+          >
+            {[
+              "Web Apps",
+              "Mobile Apps",
+              "Custom Software",
+              "APIs & Integrations",
+            ].map((label) => (
+              <span
+                key={label}
+                className="border-charcoal-grey/15 text-charcoal-grey/50 rounded-full border bg-white/60 px-3 py-1 text-xs tracking-wide"
+              >
+                {label}
+              </span>
+            ))}
+          </motion.div>
 
           {/* Waitlist signup */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.1 }}
-            className="mt-10 md:mt-14"
+            transition={{ duration: 0.5, delay: 1.15 }}
+            className="mt-10"
           >
             <WaitlistForm />
           </motion.div>
         </div>
-      </main>
+      </div>
     </section>
   );
 }
