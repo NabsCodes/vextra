@@ -21,11 +21,11 @@ function delay(ms: number): Promise<void> {
 }
 
 export const WAITLIST_MESSAGES = {
-  subscribed_new: "You're on the list. We'll be in touch soon.",
+  subscribed_new: "You're on the launch list. We'll be in touch soon.",
   already_subscribed:
-    "You're already on the waitlist. Confirmation was already sent.",
+    "You're already on the launch list. Confirmation was already sent.",
   subscribed_pending_email:
-    "You're already on the waitlist. Confirmation email is pending.",
+    "You're already on the launch list. Confirmation email is pending.",
 } as const;
 
 // Resend error like for the user
@@ -85,7 +85,7 @@ async function markDuplicateSubmission(
       return {
         status: "already_subscribed",
         message:
-          "You're already on the waitlist. We've re-sent your confirmation email.",
+          "You're already on the launch list. We've re-sent your confirmation email.",
       };
     }
   }
@@ -138,9 +138,9 @@ async function sendTeamNotification(
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     const notifyResult = await resend.emails.send(
       {
-        from: "Vextra Waitlist <waitlist@vextralimited.com>",
+        from: "Vextra Launch List <waitlist@vextralimited.com>",
         to: TEAM_NOTIFICATION_EMAIL,
-        subject: "New Vextra Waitlist Signup",
+        subject: "New Vextra Launch List Signup",
         html: notificationHtml,
       },
       { idempotencyKey },
@@ -215,7 +215,7 @@ async function retryFailedWelcomeEmail({
     {
       from: "Vextra <hello@vextralimited.com>",
       to: normalizedEmail,
-      subject: "You're on the Vextra waitlist!",
+      subject: "You're on the Vextra launch list!",
       html: await getWelcomeEmailHtml(),
     },
     {
@@ -323,7 +323,7 @@ export async function submitWaitlistSignup({
     {
       from: "Vextra <hello@vextralimited.com>",
       to: normalizedEmail,
-      subject: "You're on the Vextra waitlist!",
+      subject: "You're on the Vextra launch list!",
       html: await getWelcomeEmailHtml(),
     },
     {
@@ -355,7 +355,7 @@ export async function submitWaitlistSignup({
 
     return {
       status: "subscribed_pending_email",
-      message: "You're on the waitlist. Confirmation email is pending.",
+      message: "You're on the launch list. Confirmation email is pending.",
     };
   }
 

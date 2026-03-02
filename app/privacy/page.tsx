@@ -80,7 +80,7 @@ export default function PrivacyPage() {
               <h4>Personal Data</h4>
               <p>
                 Personally identifiable information that you voluntarily provide
-                to us when you sign up for our waitlist, contact us, or
+                to us when you sign up for our website launch list, contact us, or
                 otherwise engage with our services. This may include:
               </p>
               <ul>

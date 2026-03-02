@@ -167,7 +167,7 @@ function TeamNotificationEmail({
   return (
     <Html lang="en">
       <Head />
-      <Preview>New waitlist signup: {subscriberEmail}</Preview>
+      <Preview>New launch list signup: {subscriberEmail}</Preview>
       <Body style={styles.body}>
         <Container style={styles.container}>
           <Section style={styles.header}>
@@ -183,10 +183,10 @@ function TeamNotificationEmail({
 
           <Section style={styles.content}>
             <Heading as="h2" style={styles.title}>
-              New Waitlist Signup
+              New Launch List Signup
             </Heading>
             <Text style={styles.text}>
-              A new subscriber has joined the Vextra waitlist.
+              A new subscriber has joined the Vextra website launch list.
             </Text>
 
             <Section style={styles.card}>

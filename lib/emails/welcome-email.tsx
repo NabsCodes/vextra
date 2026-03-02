@@ -107,7 +107,7 @@ function WelcomeEmail() {
   return (
     <Html lang="en">
       <Head />
-      <Preview>You&apos;re on the Vextra waitlist.</Preview>
+      <Preview>You&apos;re on the Vextra launch list.</Preview>
       <Body style={styles.body}>
         <Container style={styles.container}>
           <Section style={styles.header}>
@@ -126,9 +126,9 @@ function WelcomeEmail() {
               You&apos;re on the list
             </Heading>
             <Text style={styles.text}>
-              Thanks for joining the Vextra waitlist. We&apos;re building
-              dependable digital products for Nigeria and Africa, and we&apos;ll
-              notify you as soon as we launch.
+              Thanks for joining the Vextra website launch list. We&apos;re
+              building dependable digital products for Nigeria and Africa, and
+              we&apos;ll notify you as soon as the full site goes live.
             </Text>
             <Text style={styles.text}>
               In the meantime, follow us for updates and behind-the-scenes
@@ -176,8 +176,8 @@ function WelcomeEmail() {
             fontSize: "11px",
           }}
         >
-          You received this email because you signed up for the Vextra Website
-          Waitlist.
+          You received this email because you signed up for the Vextra website
+          launch list.
         </Text>
       </Body>
     </Html>
