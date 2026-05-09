@@ -26,7 +26,7 @@ const offerings = [
 export function WhatWeBuildSection() {
   return (
     <section className="bg-charcoal-grey relative overflow-hidden py-16 text-white md:py-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(20,184,166,0.12),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.06),transparent_28%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(20,184,166,0.05),transparent_45%)]" />
       <div className="px-6 md:px-12 lg:px-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,7 +68,7 @@ export function WhatWeBuildSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="hover:border-vextra-green/40 rounded-2xl border border-white/10 bg-white/4 p-6 transition-all duration-300 hover:bg-white/6 hover:shadow-[0_18px_45px_rgba(20,184,166,0.12)]"
+              className="hover:border-vextra-green/30 rounded-2xl border border-white/10 bg-white/4 p-6 transition-colors duration-300 hover:bg-white/6"
             >
               <div className="flex items-center justify-between gap-4">
                 <span className="text-[11px] font-semibold tracking-[0.22em] text-white/45 uppercase">

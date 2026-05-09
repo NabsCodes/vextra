@@ -3,13 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import {
-  FaEnvelope,
-  FaInstagram,
-  FaLinkedin,
-  FaPhone,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { FaEnvelope, FaInstagram, FaLinkedin, FaPhone } from "react-icons/fa";
 import { FaArrowRight, FaXTwitter } from "react-icons/fa6";
 import { SOCIAL_LINKS } from "@/lib/socials";
 
@@ -101,24 +95,6 @@ export function SiteFooter() {
                 {SOCIAL_LINKS.map((item) => {
                   const baseClassName =
                     "flex items-center gap-2 text-charcoal-grey/70 hover:text-vextra-green transition-colors duration-300 text-sm";
-
-                  if (item.status === "soon") {
-                    return (
-                      <div
-                        key={item.key}
-                        className="text-charcoal-grey/50 flex items-center gap-2 text-sm"
-                        title="WhatsApp coming soon."
-                      >
-                        <FaWhatsapp className="h-4 w-4" />
-                        <span className="inline-flex items-center gap-2">
-                          {item.label}
-                          <span className="text-charcoal-grey/50 text-[10px] tracking-widest uppercase">
-                            Soon
-                          </span>
-                        </span>
-                      </div>
-                    );
-                  }
 
                   const icon =
                     item.key === "linkedin" ? (
