@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vextra Limited Website
 
-## Getting Started
+The public website for Vextra Limited, a software studio building dependable
+web applications, mobile products, custom software, and API integrations.
 
-First, run the development server:
+The current release is a deliberate teaser site rather than the full studio
+website. It introduces the company, shows selected work, accepts project
+enquiries, and maintains a launch list while the fuller site is developed.
+
+## Current Public Surface
+
+- `/` — studio introduction, services, selected work, principles, and launch
+  list
+- `/contact` — project and partnership enquiry form
+- `/privacy` — current privacy baseline
+- `/api/waitlist` — launch-list submission endpoint
+- `/api/enquiry` — project-enquiry submission endpoint
+
+The social share images under `app/opengraph-image.jpg` and
+`app/twitter-image.jpg` are production assets and should not be regenerated as
+part of routine SEO work.
+
+## Stack
+
+- Next.js 16 App Router and React 19
+- TypeScript
+- Tailwind CSS 4 and shadcn-style UI primitives
+- React Hook Form and Zod
+- Drizzle ORM with Postgres/Neon
+- Resend and React Email
+- Cloudflare Turnstile
+- Upstash Redis rate limiting
+- Motion for selected interface animation
+- Vercel Analytics
+
+## Local Setup
+
+Requirements:
+
+- Node.js compatible with the repository toolchain
+- pnpm
+- Postgres database
+- Resend, Upstash, and Cloudflare Turnstile credentials for complete form flows
+
+Install and configure:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local
+pnpm db:migrate
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Do not use production credentials for routine local UI work. Cloudflare test
+keys should be used when testing Turnstile locally.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
 
-## Learn More
+Copy `.env.example` and provide:
 
-To learn more about Next.js, take a look at the following resources:
+- `DATABASE_URL`
+- `RESEND_API_KEY`
+- `UPSTASH_REDIS_REST_URL`
+- `UPSTASH_REDIS_REST_TOKEN`
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY`
+- `TURNSTILE_SECRET_KEY`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Optional delivery overrides are documented in `.env.example`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Never commit `.env.local`, provider secrets, submitted form data, or private
+database identifiers.
 
-## Deploy on Vercel
+## Commands
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev             # local development server
+pnpm lint            # ESLint
+pnpm lint:fix        # auto-fix supported ESLint findings
+pnpm typecheck       # TypeScript without emit
+pnpm format          # write-format the full repository
+pnpm format:check    # verify formatting without writing
+pnpm build           # production build
+pnpm start           # run the production build
+pnpm db:generate     # generate Drizzle migrations
+pnpm db:migrate      # apply pending Drizzle migrations
+pnpm db:studio       # open Drizzle Studio
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Prefer targeted Prettier commands when unrelated work is present; the full
+`pnpm format` command can touch files outside the current task.
+
+## Repository Guidance
+
+Start with:
+
+1. `AGENTS.md`
+2. `docs/README.md`
+3. `docs/architecture.md`
+4. The system document relevant to the task
+5. The latest entries in `docs/implementation-log.md`
+
+The documentation is intentionally compact. It records durable decisions and
+current boundaries, not every implementation detail.
+
+## Delivery Safety
+
+Local checks do not prove that Vercel, Resend, Cloudflare, Upstash, DNS, or the
+production database are correctly configured. Deployment and provider
+verification must be reported separately and only performed when authorized.
