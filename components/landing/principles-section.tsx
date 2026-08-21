@@ -29,7 +29,7 @@ const principles = [
 export function PrinciplesSection() {
   return (
     <section className="bg-off-white relative py-16 md:py-24">
-      <div className="px-6 md:px-12 lg:px-20">
+      <div className="px-6 md:px-12 lg:px-16">
         {/* Section indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,7 +39,7 @@ export function PrinciplesSection() {
           className="mb-10 md:mb-12"
         >
           <div className="flex items-center gap-4">
-            <span className="text-vextra-green font-medium">03</span>
+            <span className="text-vextra-green font-medium">04</span>
             <div className="bg-vextra-green h-px w-12" />
             <span className="text-charcoal-grey/70 text-sm tracking-wide">
               Why Vextra
@@ -58,9 +58,8 @@ export function PrinciplesSection() {
             Built to Work
           </h2>
           <p className="text-charcoal-grey/60 mt-5 max-w-2xl text-lg leading-relaxed">
-            We care less about noise and more about whether the product
-            performs where it matters: in production, under real use, for real
-            people.
+            We care less about noise and more about whether the product performs
+            where it matters: in production, under real use, for real people.
           </p>
         </motion.div>
 

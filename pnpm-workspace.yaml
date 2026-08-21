@@ -1,0 +1,27 @@
+# Build scripts that Next.js / tooling need
+packages:
+  - "."
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+
+# Avoid interactive purge prompts (and CI failures)
+confirmModulesPurge: false
+
+# Hoisting / peers (moved from .npmrc for pnpm 11)
+shamefullyHoist: true
+strictPeerDependencies: false
+autoInstallPeers: true
+dedupePeerDependents: true
+preferWorkspacePackages: true
+saveExact: false
+
+# Lockfile
+frozenLockfile: false
+preferFrozenLockfile: true
+
+# Scripts
+ignoreScripts: false
+enablePrePostScripts: true

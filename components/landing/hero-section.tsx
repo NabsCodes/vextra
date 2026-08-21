@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { SiteHeader } from "@/components/landing/header";
+import { FollowAlong } from "@/components/landing/follow-along";
 import { WaitlistForm } from "@/components/landing/waitlist-form";
 
 export function HeroSection() {
@@ -47,14 +47,13 @@ export function HeroSection() {
           width={400}
           height={400}
           className="h-64 w-64 opacity-10 md:h-96 md:w-96"
+          priority
         />
       </motion.div>
 
-      <SiteHeader />
-
       {/* Hero Content */}
-      <div className="relative z-10 px-6 md:px-12 lg:px-20">
-        <div className="flex min-h-[calc(100vh-200px)] flex-col justify-center py-12 pb-24">
+      <div className="relative z-10 px-6 md:px-12 lg:px-16">
+        <div className="flex min-h-[calc(100vh-72px)] flex-col justify-center py-12 pb-24">
           {/* Section indicator */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -83,23 +82,7 @@ export function HeroSection() {
                 transition={{ duration: 0.4, delay: 0.7 }}
                 className="text-charcoal-grey/70 text-sm tracking-wide"
               >
-                Web, Mobile &amp; Custom Software
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.9 }}
-                className="text-charcoal-grey/30 text-sm"
-              >
-                &middot;
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 1.0 }}
-                className="text-charcoal-grey/50 text-sm tracking-wide"
-              >
-                Full site launching soon
+                Product engineering
               </motion.span>
             </div>
           </motion.div>
@@ -149,19 +132,26 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 1.05 }}
-            className="mt-6 flex flex-wrap gap-2 md:mt-8"
+            className="mt-5 flex flex-wrap items-center gap-x-1.5 gap-y-1.5 md:mt-6"
           >
             {[
               "Web Apps",
               "Mobile Apps",
               "Custom Software",
               "APIs & Integrations",
-            ].map((label) => (
-              <span
-                key={label}
-                className="border-charcoal-grey/15 text-charcoal-grey/50 rounded-full border bg-white/60 px-3 py-1 text-xs tracking-wide"
-              >
-                {label}
+            ].map((label, index) => (
+              <span key={label} className="inline-flex items-center gap-1.5">
+                {index > 0 ? (
+                  <span
+                    className="text-charcoal-grey/20 text-[10px]"
+                    aria-hidden
+                  >
+                    ·
+                  </span>
+                ) : null}
+                <span className="border-charcoal-grey/12 text-charcoal-grey/55 rounded-md border bg-white/50 px-2 py-0.5 text-[11px] tracking-[0.04em]">
+                  {label}
+                </span>
               </span>
             ))}
           </motion.div>
@@ -174,6 +164,7 @@ export function HeroSection() {
             className="mt-10"
           >
             <WaitlistForm />
+            <FollowAlong />
           </motion.div>
         </div>
       </div>

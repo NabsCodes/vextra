@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import { Geist, Funnel_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import { Geist, Funnel_Display } from "next/font/google";
 
 const geist = Geist({
   variable: "--font-geist",

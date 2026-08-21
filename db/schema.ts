@@ -1,4 +1,12 @@
-import { pgTable, text, timestamp, integer, uuid, pgEnum, uniqueIndex } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  integer,
+  uuid,
+  pgEnum,
+  uniqueIndex,
+} from "drizzle-orm/pg-core";
 
 export const welcomeEmailStatusEnum = pgEnum("welcome_email_status", [
   "pending",
@@ -28,7 +36,9 @@ export const waitlistSignups = pgTable(
     }),
     welcomeEmailProviderId: text("welcome_email_provider_id"),
     resendContactId: text("resend_contact_id"),
-    teamNotificationStatus: teamNotificationStatusEnum("team_notification_status")
+    teamNotificationStatus: teamNotificationStatusEnum(
+      "team_notification_status",
+    )
       .notNull()
       .default("pending"),
     teamNotificationSentAt: timestamp("team_notification_sent_at", {
@@ -45,7 +55,11 @@ export const waitlistSignups = pgTable(
       .notNull()
       .defaultNow(),
   },
-  (table) => [uniqueIndex("waitlist_signups_normalized_email_idx").on(table.normalizedEmail)],
+  (table) => [
+    uniqueIndex("waitlist_signups_normalized_email_idx").on(
+      table.normalizedEmail,
+    ),
+  ],
 );
 
 export type WaitlistSignup = typeof waitlistSignups.$inferSelect;

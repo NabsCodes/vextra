@@ -118,11 +118,7 @@
     "public.welcome_email_status": {
       "name": "welcome_email_status",
       "schema": "public",
-      "values": [
-        "pending",
-        "sent",
-        "failed"
-      ]
+      "values": ["pending", "sent", "failed"]
     }
   },
   "schemas": {},

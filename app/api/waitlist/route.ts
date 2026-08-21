@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { enforceWaitlistRateLimit } from "@/lib/rate-limit";
-import { WAITLIST_MESSAGES, submitWaitlistSignup } from "@/lib/waitlist/service";
+import {
+  WAITLIST_MESSAGES,
+  submitWaitlistSignup,
+} from "@/lib/waitlist/service";
 import type {
   WaitlistSuccessStatus,
   WaitlistErrorStatus,
@@ -53,11 +56,16 @@ export async function POST(request: Request) {
 
     const { email: normalizedEmail, honeypot } = parsedBody.data;
     const rawEmail =
-      typeof payload.email === "string" ? payload.email.trim() : normalizedEmail;
+      typeof payload.email === "string"
+        ? payload.email.trim()
+        : normalizedEmail;
 
     // Honeypot check - bots fill this hidden field, humans don't see it.
     if (honeypot) {
-      return successResponse("subscribed_new", WAITLIST_MESSAGES.subscribed_new);
+      return successResponse(
+        "subscribed_new",
+        WAITLIST_MESSAGES.subscribed_new,
+      );
     }
 
     const rateLimitResult = await enforceWaitlistRateLimit({
@@ -66,6 +74,14 @@ export async function POST(request: Request) {
     });
 
     if (!rateLimitResult.success) {
+      if (rateLimitResult.unavailable) {
+        return errorResponse(
+          "server_error",
+          "The signup form is temporarily unavailable. Please try again.",
+          503,
+        );
+      }
+
       const secondsRemaining = Math.max(
         1,
         Math.ceil((rateLimitResult.reset - Date.now()) / 1000),

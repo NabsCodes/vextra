@@ -1,12 +1,8 @@
 export type WaitlistSuccessStatus =
-  | "subscribed_new"
-  | "already_subscribed"
-  | "subscribed_pending_email";
+  "subscribed_new" | "already_subscribed" | "subscribed_pending_email";
 
 export type WaitlistErrorStatus =
-  | "invalid_email"
-  | "rate_limited"
-  | "server_error";
+  "invalid_email" | "rate_limited" | "server_error";
 
 export type WaitlistSuccessResponse = {
   success: true;
@@ -21,8 +17,7 @@ export type WaitlistErrorResponse = {
 };
 
 export type WaitlistApiResponse =
-  | WaitlistSuccessResponse
-  | WaitlistErrorResponse;
+  WaitlistSuccessResponse | WaitlistErrorResponse;
 
 export type WaitlistSuccessResult = {
   status: WaitlistSuccessStatus;

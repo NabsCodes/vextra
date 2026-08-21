@@ -7,41 +7,44 @@ import { FaEnvelope, FaInstagram, FaLinkedin, FaPhone } from "react-icons/fa";
 import { FaArrowRight, FaXTwitter } from "react-icons/fa6";
 import { SOCIAL_LINKS } from "@/lib/socials";
 
-export function SiteFooter() {
+export function SiteFooter({
+  showProjectCta = true,
+}: {
+  showProjectCta?: boolean;
+}) {
   return (
     <footer className="bg-off-white text-charcoal-grey">
       {/* Main footer content */}
-      <div className="px-6 py-16 md:px-12 md:py-20 lg:px-20">
+      <div className="px-6 py-16 md:px-12 md:py-20 lg:px-16">
         <div>
-          {/* Top section */}
-          <div className="border-charcoal-grey/10 border-b pb-12 md:pb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
-            >
-              <div>
-                <h3 className="font-display mb-3 text-2xl font-medium tracking-tight md:text-3xl">
-                  Have a project in mind?
-                </h3>
-                <p className="text-charcoal-grey/50 max-w-md">
-                  If you need dependable execution for a web, mobile, or custom
-                  software project, let&apos;s talk.
-                </p>
-              </div>
-              <motion.a
-                href="mailto:info@vextralimited.com?subject=Project%20Inquiry"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="text-charcoal-grey bg-vextra-green hover:bg-deep-teal inline-flex w-fit items-center gap-3 rounded-lg px-6 py-3.5 text-sm font-medium tracking-wide transition-colors hover:text-white"
+          {showProjectCta ? (
+            <div className="border-charcoal-grey/10 border-b pb-12 md:pb-16">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
               >
-                <span>Start a Project</span>
-                <FaArrowRight className="h-4 w-4" />
-              </motion.a>
-            </motion.div>
-          </div>
+                <div>
+                  <h3 className="font-display mb-3 text-2xl font-medium tracking-tight md:text-3xl">
+                    Have a project in mind?
+                  </h3>
+                  <p className="text-charcoal-grey/50 max-w-md">
+                    If you need dependable execution for a web, mobile, or
+                    custom software project, let&apos;s talk.
+                  </p>
+                </div>
+                <Link
+                  href="/contact"
+                  className="text-charcoal-grey bg-vextra-green hover:bg-deep-teal inline-flex w-fit items-center gap-3 rounded-lg px-6 py-3.5 text-sm font-medium tracking-wide transition-colors hover:text-white"
+                >
+                  <span>Start a Project</span>
+                  <FaArrowRight className="h-4 w-4" />
+                </Link>
+              </motion.div>
+            </div>
+          ) : null}
 
           {/* Middle section - Links & Info */}
           <div className="grid grid-cols-2 gap-8 py-12 md:grid-cols-3 md:gap-12 md:py-16">
@@ -128,7 +131,7 @@ export function SiteFooter() {
 
       {/* Bottom bar */}
       <div className="border-charcoal-grey/10 bg-charcoal-grey/5 border-t">
-        <div className="px-6 py-6 md:px-12 lg:px-20">
+        <div className="px-6 py-6 md:px-12 lg:px-16">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
               <span className="text-charcoal-grey/50 text-sm">

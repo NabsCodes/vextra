@@ -327,10 +327,7 @@ export async function submitWaitlistSignup({
       html: await getWelcomeEmailHtml(),
     },
     {
-      idempotencyKey: buildIdempotencyKey(
-        "vextra-waitlist-welcome",
-        signupId,
-      ),
+      idempotencyKey: buildIdempotencyKey("vextra-waitlist-welcome", signupId),
     },
   );
 

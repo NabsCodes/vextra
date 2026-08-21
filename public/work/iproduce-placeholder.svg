@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="iProduce Africa development placeholder">
+  <rect width="1600" height="1000" fill="#eef2f3"/>
+  <rect x="420" y="80" width="760" height="840" rx="36" fill="#f9fafb" stroke="#d5dadf" stroke-width="2"/>
+  <rect x="460" y="160" width="680" height="120" fill="#ffffff" stroke="#d5dadf"/>
+  <rect x="460" y="320" width="200" height="200" fill="#14b8a6" opacity="0.2"/>
+  <rect x="700" y="320" width="200" height="200" fill="#2f3a3f" opacity="0.12"/>
+  <rect x="940" y="320" width="200" height="200" fill="#14a590" opacity="0.18"/>
+  <rect x="460" y="560" width="680" height="18" fill="#d5dadf"/>
+  <rect x="460" y="600" width="520" height="12" fill="#e5e9eb"/>
+  <rect width="1600" height="56" fill="#0f766e"/>
+  <text x="800" y="36" text-anchor="middle" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" letter-spacing="0.18em">DEVELOPMENT PLACEHOLDER — IPRODUCE AFRICA</text>
+</svg>

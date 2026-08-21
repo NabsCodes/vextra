@@ -138,20 +138,12 @@
     "public.team_notification_status": {
       "name": "team_notification_status",
       "schema": "public",
-      "values": [
-        "pending",
-        "sent",
-        "failed"
-      ]
+      "values": ["pending", "sent", "failed"]
     },
     "public.welcome_email_status": {
       "name": "welcome_email_status",
       "schema": "public",
-      "values": [
-        "pending",
-        "sent",
-        "failed"
-      ]
+      "values": ["pending", "sent", "failed"]
     }
   },
   "schemas": {},

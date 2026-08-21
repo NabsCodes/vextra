@@ -24,7 +24,7 @@ export function MissionSection() {
         />
       </div>
 
-      <div className="relative z-10 px-6 md:px-12 lg:px-20">
+      <div className="relative z-10 px-6 md:px-12 lg:px-16">
         {/* Section indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,7 +34,7 @@ export function MissionSection() {
           className="mb-12"
         >
           <div className="flex items-center gap-4">
-            <span className="text-vextra-green font-medium">04</span>
+            <span className="text-vextra-green font-medium">05</span>
             <div className="bg-vextra-green h-px w-12" />
             <span className="text-sm tracking-wide text-white/60">
               Our Mission

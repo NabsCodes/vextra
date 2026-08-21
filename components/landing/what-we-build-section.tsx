@@ -27,7 +27,7 @@ export function WhatWeBuildSection() {
   return (
     <section className="bg-charcoal-grey relative overflow-hidden py-16 text-white md:py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(20,184,166,0.05),transparent_45%)]" />
-      <div className="px-6 md:px-12 lg:px-20">
+      <div className="px-6 md:px-12 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ export function WhatWeBuildSection() {
           className="mb-10 md:mb-12"
         >
           <div className="flex items-center gap-4">
-            <span className="text-vextra-green font-medium">02</span>
+            <span className="text-vextra-green font-medium">03</span>
             <div className="bg-vextra-green h-px w-12" />
             <span className="text-sm tracking-wide text-white/60">
               What We Build

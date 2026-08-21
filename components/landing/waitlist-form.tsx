@@ -136,7 +136,7 @@ export function WaitlistForm() {
         Join the website launch list
       </p>
       <p className="text-charcoal-grey/60 mt-1 mb-3 text-[11px] font-medium tracking-[0.2em] uppercase">
-        Get one email when the full site goes live
+        One email when the fuller site goes live
       </p>
 
       <label htmlFor="waitlist-email" className="sr-only">
@@ -153,7 +153,7 @@ export function WaitlistForm() {
           name="website"
           value={honeypot}
           onChange={(e) => setHoneypot(e.target.value)}
-          className="absolute -left-[9999px] opacity-0"
+          className="absolute left-[-9999px] opacity-0"
           tabIndex={-1}
           autoComplete="off"
           aria-hidden="true"
@@ -184,7 +184,7 @@ export function WaitlistForm() {
           disabled={state === "loading" || !email.trim()}
           className={cn(
             "cursor-pointer rounded-full px-4",
-            "inline-flex h-11 w-full items-center justify-center gap-1.5 sm:absolute sm:top-1 sm:right-1 sm:bottom-1 sm:h-auto sm:w-auto sm:min-w-[132px]",
+            "inline-flex h-11 w-full items-center justify-center gap-1.5 sm:absolute sm:top-1 sm:right-1 sm:bottom-1 sm:h-auto sm:w-auto sm:min-w-33",
             "text-[11px] font-semibold tracking-[0.06em] uppercase",
             "transition-all duration-300 focus:ring-2 focus:ring-offset-1 focus:outline-none",
             "focus:ring-vextra-green",
@@ -207,7 +207,7 @@ export function WaitlistForm() {
         </button>
       </form>
 
-      <div className="mt-3 min-h-[22px]">
+      <div className="mt-3 min-h-5.5">
         {feedback ? (
           <p
             role={feedback.assertive ? "alert" : "status"}
@@ -225,8 +225,14 @@ export function WaitlistForm() {
           </p>
         ) : (
           <p className="text-charcoal-grey/40 text-xs">
-            Open for project inquiries in the meantime. No spam. One email when
-            the site launches.
+            Need work done now?{" "}
+            <a
+              href="/contact"
+              className="hover:text-vextra-green underline underline-offset-2 transition-colors"
+            >
+              Send a project enquiry
+            </a>
+            . No spam — one email when the fuller site is live.
           </p>
         )}
       </div>

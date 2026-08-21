@@ -28,6 +28,7 @@ export function Marquee() {
         className="flex w-max py-4"
       >
         {[...items, ...items].map((item, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: we want to use the index as the key
           <span key={i} className="flex items-center">
             <span className="text-[11px] tracking-[0.28em] whitespace-nowrap text-white/35 uppercase">
               {item}

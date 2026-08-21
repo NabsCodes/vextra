@@ -1,6 +1,6 @@
-import { type Metadata } from "next";
-import Link from "next/link";
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
     <div className="bg-off-white min-h-screen">
       {/* Header */}
       <header className="border-border border-b">
-        <div className="flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
+        <div className="flex items-center justify-between px-6 py-6 md:px-12 lg:px-16">
           <Link href="/" className="group flex items-center">
             <Image
               src="/secondary-logo-03.png"
@@ -38,7 +38,7 @@ export default function PrivacyPage() {
       </header>
 
       {/* Content */}
-      <main className="px-6 py-16 md:px-12 md:py-24 lg:px-20">
+      <main className="px-6 py-16 md:px-12 md:py-24 lg:px-16">
         <div className="mx-auto max-w-3xl">
           {/* Title */}
           <div className="border-border mb-12 border-b pb-12">
@@ -80,8 +80,8 @@ export default function PrivacyPage() {
               <h4>Personal Data</h4>
               <p>
                 Personally identifiable information that you voluntarily provide
-                to us when you sign up for our website launch list, contact us, or
-                otherwise engage with our services. This may include:
+                to us when you sign up for our website launch list, contact us,
+                or otherwise engage with our services. This may include:
               </p>
               <ul>
                 <li>Email address</li>
@@ -323,7 +323,7 @@ export default function PrivacyPage() {
 
       {/* Footer */}
       <footer className="border-border border-t">
-        <div className="px-6 py-8 md:px-12 lg:px-20">
+        <div className="px-6 py-8 md:px-12 lg:px-16">
           <div className="mx-auto flex max-w-3xl items-center justify-between">
             <span className="text-charcoal-grey/80 text-sm">
               &copy; {new Date().getFullYear()} Vextra Limited. All rights
