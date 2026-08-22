@@ -4,8 +4,8 @@
 
 - **Accepted target:** the structure in this document is the approved direction
   for the current public-site scale.
-- **Migration state:** documentation comes first; the existing code has not yet
-  been fully relocated into this target.
+- **Migration state:** route, component, content, form/server, provider, and SEO
+  ownership are aligned for the current public-site scope.
 - **Last reviewed:** 2026-08-21.
 
 This document is the canonical source for file ownership and application
@@ -29,7 +29,7 @@ The structure should stay:
 - ready for more public pages without pretending they already exist
 - easy for a developer or agent to understand in one short reading pass
 
-## Accepted Target Tree
+## Current Implemented Structure
 
 ```text
 app/
@@ -51,6 +51,7 @@ app/
       route.ts
 
   layout.tsx
+  not-found.tsx
   globals.css
   robots.ts
   sitemap.ts
@@ -67,10 +68,11 @@ components/
 
 content/
   site.ts
-  seo.ts
   home.ts
   contact.ts
   legal.ts
+  seo.ts
+  system-pages.ts
   work.ts
 
 hooks/
@@ -86,19 +88,28 @@ schemas/
 
 types/
   enquiry.ts
-  waitlist.ts
   legal.ts
+  system-pages.ts
+  waitlist.ts
 
 lib/
   email/
+    components/
+    previews/
+    templates/
+    delivery.ts
+    render.ts
+  enquiry/
+    options.ts
   enquiry.ts
-  waitlist.ts
   env.ts
+  form-results.ts
   metadata.ts
   rate-limit.ts
   request.ts
   turnstile.ts
   utils.ts
+  waitlist.ts
 
 db/
   client.ts
@@ -108,31 +119,37 @@ drizzle/
   ...generated migrations
 
 public/
-  brand/
-  work/
+  ...brand and project assets
+
+tests/
+  forms.test.ts
 ```
 
-Only create a folder when real files are ready to move into it. The tree is a
-destination, not a request for empty placeholders.
+This is the implemented state after Goals 2–4. The route groups do not alter
+the public URLs: Home remains `/`, Contact remains `/contact`, and Privacy
+remains `/privacy`.
 
-## Current-to-Target Map
+## Migration Map
 
-| Current location                   | Accepted owner                                                                 |
-| ---------------------------------- | ------------------------------------------------------------------------------ |
-| `components/landing/*`             | Home-only files to `components/home/*`; global chrome to `components/layout/*` |
-| `components/turnstile-widget.tsx`  | `components/shared/turnstile-widget.tsx`                                       |
-| `lib/socials.ts`                   | `content/site.ts`                                                              |
-| `lib/work/projects.ts`             | `content/work.ts`                                                              |
-| `lib/enquiry/schema.ts`            | `schemas/enquiry.ts`                                                           |
-| `lib/validation/waitlist.ts`       | `schemas/waitlist.ts`                                                          |
-| `lib/enquiry/types.ts`             | `types/enquiry.ts`                                                             |
-| `lib/waitlist/types.ts`            | `types/waitlist.ts`                                                            |
-| `lib/enquiry/service.ts`           | `lib/enquiry.ts`                                                               |
-| `lib/waitlist/service.ts`          | `lib/waitlist.ts`                                                              |
-| Inline Privacy layout and sections | `components/legal/*` plus `content/legal.ts`                                   |
+| Previous/current location          | Accepted owner                                                                 | Status   |
+| ---------------------------------- | ------------------------------------------------------------------------------ | -------- |
+| `components/landing/*`             | Home-only files to `components/home/*`; global chrome to `components/layout/*` | Complete |
+| `components/turnstile-widget.tsx`  | `components/shared/turnstile-widget.tsx`                                       | Complete |
+| `lib/socials.ts`                   | `content/site.ts`                                                              | Complete |
+| `lib/work/projects.ts`             | `content/work.ts`                                                              | Complete |
+| Inline Privacy layout and sections | `components/legal/*` plus `content/legal.ts`                                   | Complete |
+| `lib/enquiry/schema.ts`            | `schemas/enquiry.ts`                                                           | Complete |
+| `lib/validation/waitlist.ts`       | `schemas/waitlist.ts`                                                          | Complete |
+| `lib/enquiry/types.ts`             | `types/enquiry.ts`                                                             | Complete |
+| `lib/waitlist/types.ts`            | `types/waitlist.ts`                                                            | Complete |
+| `lib/enquiry/service.ts`           | `lib/enquiry.ts`                                                               | Complete |
+| `lib/waitlist/service.ts`          | `lib/waitlist.ts`                                                              | Complete |
+| `lib/emails/*`                     | `lib/email/*`                                                                  | Complete |
+| Repeated route IP parsing          | `lib/request.ts`                                                               | Complete |
+| Inline/root SEO metadata           | `content/seo.ts` plus `lib/metadata.ts`                                        | Complete |
 
 Moves should preserve behavior. Do not redesign the UI or change provider
-contracts during path-only migration slices.
+contracts during path-only migration work.
 
 ## Folder Ownership
 
@@ -166,7 +183,8 @@ Owns presentation:
 - `contact/` — Contact-page composition and form UI
 - `legal/` — reusable legal reading layout and section rendering
 - `layout/` — global header, footer, logo, navigation, and social presentation
-- `shared/` — genuinely cross-page presentation with a clear name
+- `shared/` — genuinely cross-page presentation with a clear name, including
+  system-page views such as the 404
 - `ui/` — shadcn-style primitives and primitive variants
 
 Avoid a large anonymous `shared` bucket. A component used twice does not
@@ -182,6 +200,7 @@ Owns code-managed public content:
 - selected-work records
 - legal copy
 - SEO copy and indexable route records
+- system-page copy such as the public 404
 
 Content files do not contain React markup, provider clients, database queries,
 or browser state.
@@ -233,6 +252,17 @@ Owns infrastructure and server workflows:
 
 Keep `lib/` shallow. A nested folder is justified when a concern has several
 related files, as email already does.
+
+Email ownership follows one explicit split:
+
+- `components/*.tsx` — reusable React Email presentation
+- `templates/*.tsx` — complete email documents
+- `previews/*.tsx` — safe example fixtures for `pnpm email:dev`
+- root `*.ts` modules — rendering, delivery, provider access, formatting, and
+  template builders
+
+Use `.tsx` only when the module contains JSX. Do not mix provider calls or
+workflow logic into template files.
 
 Server-only modules should declare `import "server-only"` when they depend on
 credentials, private environment variables, the database, or providers.
@@ -296,6 +326,6 @@ Until then, the page-oriented structure is clearer.
 3. Update every import and remove the old file.
 4. Do not leave compatibility re-export files.
 5. Keep relocation behavior-preserving.
-6. Verify after every completed slice.
+6. Verify after every completed work item.
 7. Update this document and the implementation log when the migration state
    changes.

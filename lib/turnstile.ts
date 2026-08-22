@@ -1,3 +1,5 @@
+import "server-only";
+
 type TurnstileResponse = {
   success: boolean;
   "error-codes"?: string[];

@@ -1,0 +1,9 @@
+import { LegalPageLayout } from "@/components/legal/legal-page-layout";
+
+export default function LegalLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <LegalPageLayout>{children}</LegalPageLayout>;
+}

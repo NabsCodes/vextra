@@ -1,7 +1,9 @@
+import "server-only";
+
 import { createHash } from "crypto";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { getRequiredEnv } from "@/lib/server-env";
+import { getRequiredEnv } from "@/lib/env";
 
 const redis = new Redis({
   url: getRequiredEnv("UPSTASH_REDIS_REST_URL"),

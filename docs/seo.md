@@ -2,9 +2,12 @@
 
 ## Status
 
-The current site has a root metadata baseline, route metadata for Contact and
-Privacy, and production Open Graph/Twitter images. The accepted refactor will
-centralize SEO copy and add generated crawl files without remaking the images.
+The current site has centralized root and route metadata, canonical URLs for
+all public pages, generated crawl files, verified Organization/WebSite
+structured data, and the existing production Open Graph/Twitter images.
+
+Local implementation and rendering are verified. Production indexing and
+social-card cache refresh remain deployment checks, not repository claims.
 
 ## Ownership
 
@@ -17,6 +20,7 @@ centralize SEO copy and add generated crawl files without remaking the images.
   route data is dynamic
 - `app/robots.ts` — crawler rules
 - `app/sitemap.ts` — indexable route list
+- `components/layout/site-structured-data.tsx` — site-wide verified JSON-LD
 - `app/opengraph-image.jpg` and `app/twitter-image.jpg` — current production
   social images
 
@@ -59,6 +63,13 @@ Every indexable public route needs:
 
 The root title template should prevent manually repeating `| Vextra Limited`
 in page titles.
+
+## System Pages
+
+`app/not-found.tsx` is a recovery surface, not an indexable marketing route.
+It uses `noindex, follow`, stays out of the sitemap, and reuses site chrome so
+visitors remain inside the public brand shell. Presentation copy lives in
+`content/system-pages.ts`.
 
 ## Crawl and Launch Rules
 

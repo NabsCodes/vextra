@@ -3,7 +3,7 @@
 Vextra Limited is a software studio building dependable web, mobile, custom
 software, and API products. This repository currently serves the public teaser
 site, project enquiry flow, launch list, and legal baseline while the fuller
-studio site is developed in controlled slices.
+studio site is developed through approved milestones.
 
 ## Start Here
 
@@ -12,13 +12,14 @@ Before changing the repository:
 1. Read `README.md`.
 2. Read `docs/README.md`.
 3. Read `docs/architecture.md`.
-4. Read the relevant system document for the task.
-5. Read the newest entries in `docs/implementation-log.md`.
-6. Inspect `git status`, the current diff, and the nearby implementation.
+4. Read `docs/roadmap.md` for the current objective and remaining work.
+5. Read the relevant system document for the task.
+6. Read the newest entries in `docs/implementation-log.md`.
+7. Inspect `git status`, the current diff, and the nearby implementation.
 
-Do not assume a target structure described in the docs has already been
-migrated. `docs/architecture.md` distinguishes current and accepted target
-state.
+Treat `docs/architecture.md` as the current ownership map. When a future
+roadmap item proposes a different structure, distinguish that proposal from the
+implemented filesystem until its migration is verified.
 
 ## Product Boundary
 
@@ -27,7 +28,7 @@ state.
   behavior unless the task explicitly changes them.
 - Do not publish placeholder project artwork or unapproved client material.
 - Do not add About, Team, Blog, Academy, CMS, case-study routes, metrics, or a
-  `/work` archive without an approved slice.
+  `/work` archive without an approved roadmap goal.
 - Pages may be developed locally or on a branch. An unlinked deployed route is
   still public and must not be treated as hidden.
 
@@ -46,13 +47,15 @@ See `docs/site-phases.md` for the current launch boundary.
   hooks or create hooks only to reduce line count.
 - `lib/` owns infrastructure and server workflows. Keep it shallow unless a
   concern has several related files.
+- Use `.tsx` only for modules that render JSX. Keep schemas, helpers, builders,
+  provider clients, delivery logic, and other non-JSX modules in `.ts` files.
 - `providers/app-providers.tsx` is the single app-wide client-provider
   composition point. Do not introduce global state without a real requirement.
 - `db/` owns the Drizzle client/schema; `drizzle/` owns generated SQL migrations.
 - Do not introduce `features/` or move the project into `src/` at the current
   site scale.
 
-The accepted target tree and migration rules live in `docs/architecture.md`.
+The implemented tree and ownership rules live in `docs/architecture.md`.
 
 ## UI Rules
 
@@ -80,9 +83,9 @@ The accepted target tree and migration rules live in `docs/architecture.md`.
 ## Working Rules
 
 - Preserve unrelated changes in a dirty worktree.
-- Prefer small, behavior-preserving refactor slices.
+- Prefer small, behavior-preserving work items within the active roadmap goal.
 - Do not combine file relocation, UI redesign, and behavior changes in one
-  slice unless they are inseparable.
+  change unless they are inseparable.
 - Do not create empty architecture folders for future possibilities.
 - Do not add generic `common`, `helpers`, or `services` dumping grounds.
 - Do not commit, push, deploy, migrate a shared database, or modify external
@@ -90,21 +93,23 @@ The accepted target tree and migration rules live in `docs/architecture.md`.
 - Update the matching canonical doc when an architectural, design, layout, SEO,
   workflow, or launch-boundary decision changes.
 - Append one concise entry to `docs/implementation-log.md` after a meaningful
-  completed slice. Do not log trivial formatting or exploratory reads.
+  completed work item. Do not log trivial formatting or exploratory reads.
 
 ## Verification
 
 Use the smallest verification set that gives honest confidence:
 
 - Documentation only: targeted Prettier check and link/content review.
-- TypeScript or component logic: targeted formatting, `pnpm lint`, and
-  `pnpm typecheck`.
+- TypeScript or component logic: targeted formatting, `pnpm lint`,
+  `pnpm typecheck`, and relevant focused tests.
 - Routing, metadata, server, dependency, environment, or database changes: add
   `pnpm build`.
 - UI or interaction changes: add browser QA at relevant desktop and 390px
   mobile widths.
 - API changes: exercise local success/failure contracts without contacting live
   providers unless authorized.
+- Email-template changes: run focused rendering tests and inspect the examples
+  with `pnpm email:dev` when visual presentation changes.
 
 Use targeted formatting while the worktree is dirty:
 
@@ -118,6 +123,7 @@ Use the full commands at a clean completion checkpoint:
 pnpm format:check
 pnpm lint
 pnpm typecheck
+pnpm test
 pnpm build
 ```
 

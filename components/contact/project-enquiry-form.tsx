@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   AlertCircle,
   ArrowRight,
@@ -9,12 +7,8 @@ import {
   Info,
   Loader2,
 } from "lucide-react";
-import { Controller, useForm, useWatch } from "react-hook-form";
-import { toast } from "sonner";
-import {
-  TurnstileWidget,
-  type TurnstileWidgetHandle,
-} from "@/components/turnstile-widget";
+import { Controller } from "react-hook-form";
+import { TurnstileWidget } from "@/components/shared/turnstile-widget";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -33,33 +27,12 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { contactPageContent } from "@/content/contact";
-import {
-  enquiryRequestSchema,
-  type EnquiryRequestFormValues,
-  type EnquiryRequestInput,
-} from "@/lib/enquiry/schema";
+import { useProjectEnquiryForm } from "@/hooks/use-project-enquiry-form";
 import {
   ENQUIRY_SERVICE_OPTIONS,
   type EnquiryService,
 } from "@/lib/enquiry/options";
-import type { EnquiryApiResponse } from "@/lib/enquiry/types";
 import { cn } from "@/lib/utils";
-
-type Feedback = {
-  type: "success" | "info" | "warning" | "error";
-  text: string;
-  assertive?: boolean;
-};
-
-const INITIAL_FORM = {
-  name: "",
-  email: "",
-  company: "",
-  serviceDetails: "",
-  message: "",
-  turnstileToken: "",
-  honeypot: "",
-} satisfies Partial<EnquiryRequestFormValues>;
 
 const controlClassName = cn(
   "border-charcoal-grey/25 bg-white text-charcoal-grey shadow-none",
@@ -72,76 +45,21 @@ const labelClassName =
 
 export function ProjectEnquiryForm() {
   const { form: formContent } = contactPageContent;
-  const turnstileRef = useRef<TurnstileWidgetHandle>(null);
-  const [feedback, setFeedback] = useState<Feedback | null>(null);
-  const verificationConfigured = Boolean(
-    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
-  );
-
-  const form = useForm<EnquiryRequestFormValues, unknown, EnquiryRequestInput>({
-    resolver: zodResolver(enquiryRequestSchema),
-    defaultValues: INITIAL_FORM,
-    mode: "onTouched",
-  });
-
   const {
     control,
-    formState: { errors, isSubmitting },
-    handleSubmit,
+    errors,
+    isSubmitting,
     register,
-    reset,
-    setValue,
-  } = form;
-  const selectedService = useWatch({ control, name: "service" });
-
-  const clearFeedback = () => {
-    if (feedback) setFeedback(null);
-  };
-
-  const submitEnquiry = async (values: EnquiryRequestInput) => {
-    setFeedback(null);
-
-    try {
-      const response = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      const data = (await response.json()) as EnquiryApiResponse;
-
-      if (response.ok && data.success) {
-        reset(INITIAL_FORM);
-        setFeedback({ type: "success", text: data.message });
-        return;
-      }
-
-      if (!response.ok && !data.success) {
-        const warningStatuses = new Set([
-          "rate_limited",
-          "service_unavailable",
-        ]);
-
-        setFeedback({
-          type: warningStatuses.has(data.status) ? "warning" : "error",
-          text: data.message,
-          assertive: !warningStatuses.has(data.status),
-        });
-
-        if (data.status === "server_error") toast.error(data.message);
-        return;
-      }
-
-      throw new Error("Unexpected enquiry response");
-    } catch (error) {
-      console.error("[Enquiry] Error:", error);
-      const message = "Something went wrong. Please try again.";
-      setFeedback({ type: "error", text: message, assertive: true });
-      toast.error(message);
-    } finally {
-      turnstileRef.current?.reset();
-    }
-  };
+    selectedService,
+    feedback,
+    verificationConfigured,
+    turnstileRef,
+    clearFeedback,
+    handleServiceChange,
+    handleTurnstileTokenChange,
+    handleTurnstileUnavailable,
+    onSubmit,
+  } = useProjectEnquiryForm();
 
   const feedbackIcon =
     feedback?.type === "success" ? (
@@ -160,21 +78,7 @@ export function ProjectEnquiryForm() {
         </p>
       </div>
 
-      <form
-        className="p-5 sm:p-7 lg:p-9"
-        noValidate
-        onSubmit={handleSubmit(submitEnquiry, (invalidFields) => {
-          const firstError = Object.values(invalidFields)[0]?.message;
-          setFeedback({
-            type: "error",
-            text:
-              typeof firstError === "string"
-                ? firstError
-                : "Please check the form.",
-            assertive: true,
-          });
-        })}
-      >
+      <form className="p-5 sm:p-7 lg:p-9" noValidate onSubmit={onSubmit}>
         <Input
           {...register("honeypot")}
           type="text"
@@ -251,16 +155,9 @@ export function ProjectEnquiryForm() {
                     What do you need?
                   </FieldLabel>
                   <Select
-                    value={field.value}
+                    value={field.value ?? ""}
                     onValueChange={(value: EnquiryService) => {
-                      field.onChange(value);
-                      if (value !== "other") {
-                        setValue("serviceDetails", "", {
-                          shouldDirty: false,
-                          shouldValidate: true,
-                        });
-                      }
-                      clearFeedback();
+                      handleServiceChange(value, field.onChange);
                     }}
                     disabled={isSubmitting}
                     name="service"
@@ -334,19 +231,8 @@ export function ProjectEnquiryForm() {
           <Field data-invalid={Boolean(errors.turnstileToken)}>
             <TurnstileWidget
               ref={turnstileRef}
-              onTokenChange={(token) => {
-                setValue("turnstileToken", token, {
-                  shouldDirty: true,
-                  shouldValidate: Boolean(token),
-                });
-                clearFeedback();
-              }}
-              onUnavailable={() =>
-                setFeedback({
-                  type: "warning",
-                  text: "Verification is unavailable. Please use the email option below.",
-                })
-              }
+              onTokenChange={handleTurnstileTokenChange}
+              onUnavailable={handleTurnstileUnavailable}
             />
             <FieldError errors={[errors.turnstileToken]} />
           </Field>

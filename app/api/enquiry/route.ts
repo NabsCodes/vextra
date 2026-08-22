@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
-import { submitProjectEnquiry } from "@/lib/enquiry/service";
+import { submitProjectEnquiry } from "@/lib/enquiry";
 import type {
   EnquiryErrorResponse,
   EnquiryErrorStatus,
   EnquirySuccessResponse,
-} from "@/lib/enquiry/types";
-import { enquiryRequestSchema } from "@/lib/enquiry/schema";
+} from "@/types/enquiry";
 import { enforceEnquiryRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/request";
 import { verifyTurnstileToken } from "@/lib/turnstile";
+import { enquiryRequestSchema } from "@/schemas/enquiry";
 
 export const runtime = "nodejs";
 
@@ -30,15 +31,6 @@ function errorResponse(
     { success: false, status, message },
     { status: httpStatus },
   );
-}
-
-function getClientIp(request: Request): string {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0]?.trim() || "unknown";
-  }
-
-  return request.headers.get("x-real-ip")?.trim() || "unknown";
 }
 
 export async function POST(request: Request) {

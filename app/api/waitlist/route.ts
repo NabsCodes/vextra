@@ -1,16 +1,15 @@
 import { NextResponse } from "next/server";
+import { WAITLIST_MESSAGES } from "@/lib/form-results";
 import { enforceWaitlistRateLimit } from "@/lib/rate-limit";
-import {
-  WAITLIST_MESSAGES,
-  submitWaitlistSignup,
-} from "@/lib/waitlist/service";
+import { getClientIp } from "@/lib/request";
+import { submitWaitlistSignup } from "@/lib/waitlist";
 import type {
   WaitlistSuccessStatus,
   WaitlistErrorStatus,
   WaitlistSuccessResponse,
   WaitlistErrorResponse,
-} from "@/lib/waitlist/types";
-import { waitlistRequestSchema } from "@/lib/validation/waitlist";
+} from "@/types/waitlist";
+import { waitlistRequestSchema } from "@/schemas/waitlist";
 
 export const runtime = "nodejs";
 
@@ -30,15 +29,6 @@ function errorResponse(
     { success: false, status, message },
     { status: httpStatus },
   );
-}
-
-function getClientIp(request: Request): string {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0]?.trim() || "unknown";
-  }
-
-  return request.headers.get("x-real-ip")?.trim() || "unknown";
 }
 
 export async function POST(request: Request) {

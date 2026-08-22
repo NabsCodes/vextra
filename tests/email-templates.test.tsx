@@ -1,0 +1,51 @@
+import { render } from "@react-email/render";
+import { describe, expect, it } from "vitest";
+import { EnquiryTeamEmailTemplate } from "@/lib/email/templates/enquiry-team";
+import { TeamNotificationEmailTemplate } from "@/lib/email/templates/team-notification";
+import { WelcomeEmailTemplate } from "@/lib/email/templates/welcome";
+
+describe("React Email templates", () => {
+  it("renders the project-enquiry example as HTML and plain text", async () => {
+    const template = (
+      <EnquiryTeamEmailTemplate
+        name="Ada Okonkwo"
+        email="ada@example.com"
+        company="Northstar Operations"
+        serviceLabel="Web application"
+        serviceDetails=""
+        message="We need a dependable operations platform."
+      />
+    );
+
+    const [html, text] = await Promise.all([
+      render(template),
+      render(template, { plainText: true }),
+    ]);
+
+    expect(html).toContain("New project enquiry");
+    expect(text).toContain("ada@example.com");
+  });
+
+  it("renders the launch-list team notification example", async () => {
+    const html = await render(
+      <TeamNotificationEmailTemplate
+        subscriberEmail="ada@example.com"
+        signupId="preview-signup-01"
+        signedUpAtLocal="August 21, 2026 at 4:30 PM GMT+1"
+        signedUpAtUtc="August 21, 2026 at 3:30 PM UTC"
+        signedUpAtIso="2026-08-21T15:30:00.000Z"
+        teamTimeZone="Africa/Lagos"
+      />,
+    );
+
+    expect(html).toContain("New launch-list signup");
+    expect(html).toContain("preview-signup-01");
+  });
+
+  it("renders the subscriber welcome example", async () => {
+    const html = await render(<WelcomeEmailTemplate />);
+
+    expect(html).toContain("Thanks for joining us");
+    expect(html).toContain("LinkedIn");
+  });
+});

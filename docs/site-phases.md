@@ -61,7 +61,7 @@ These are not part of the current teaser milestone:
 - project metrics and filters
 - inquiry management product or client portal
 
-They should be introduced as approved slices, not scaffolded merely to make the
+They should be introduced as approved roadmap goals, not scaffolded merely to make the
 repository appear complete.
 
 ## Developing Future Pages
@@ -89,7 +89,7 @@ When the fuller site is ready:
 - publish only approved project stories
 - update navigation and sitemap together
 - reconcile Home, footer, SEO, legal disclosures, and documentation in the same
-  release slice
+  release milestone
 
 The launch list should not silently become a recurring marketing newsletter
 without updated consent language and an approved delivery model.

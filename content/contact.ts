@@ -1,9 +1,4 @@
 export const contactPageContent = {
-  metadata: {
-    title: "Start a Project",
-    description:
-      "Start a conversation with Vextra about a web application, mobile product, custom software system, API integration, or partnership.",
-  },
   intro: {
     eyebrow: "Start a project",
     title: "Have a project in mind?",
