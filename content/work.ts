@@ -18,11 +18,11 @@ export const SELECTED_PROJECTS: SelectedProject[] = [
   {
     id: "wardwise",
     coordinate: "01",
-    category: "Civic System / Web Platform",
+    category: "Civic Technology / Field Operations",
     name: "WardWise",
     description:
       "A ward-level operations platform for public teams coordinating local work, visibility, and accountability across communities.",
-    surface: "Web Platform",
+    surface: "Campaign Operations Platform",
     role: "Product design and full-stack engineering",
     imageSrc: "/work/wardwise-share.jpg",
     imageAlt: "WardWise public share image",
@@ -30,10 +30,10 @@ export const SELECTED_PROJECTS: SelectedProject[] = [
   {
     id: "q-das-global",
     coordinate: "02",
-    category: "ICT Solutions / Corporate Platform",
+    category: "ICT Services / Corporate Site",
     name: "Q-DAS Global",
     description:
-      "A corporate platform for an ICT solutions provider, bringing software, managed services, infrastructure, and support into one clear public presence.",
+      "A corporate website for an ICT solutions provider, bringing software, managed services, infrastructure, and support into one clear public presence.",
     surface: "Corporate Website",
     role: "Website design and engineering",
     imageSrc: "/work/q-das-share.jpg",
@@ -42,7 +42,7 @@ export const SELECTED_PROJECTS: SelectedProject[] = [
   {
     id: "iproduce-africa",
     coordinate: "03",
-    category: "Marketplace / Operations",
+    category: "Agribusiness / Marketplace",
     name: "iProduce Africa",
     description:
       "A marketplace platform connecting African producers with buyers and the operational tools needed for real-world trade.",

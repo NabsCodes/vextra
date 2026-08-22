@@ -33,8 +33,8 @@ export function NotFoundView() {
       />
 
       <section className="relative px-6 py-16 md:px-12 md:py-24 lg:px-16 lg:py-28">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-24">
-          <div>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:items-stretch lg:gap-16 xl:gap-20">
+          <div className="flex flex-col justify-center">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -115,7 +115,7 @@ export function NotFoundView() {
             </motion.div>
           </div>
 
-          <div className="lg:justify-self-end">
+          <div className="flex w-full min-w-0 items-stretch self-stretch">
             <NotFoundIllustration />
           </div>
         </div>

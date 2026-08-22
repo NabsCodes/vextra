@@ -33,24 +33,22 @@ function ProjectDossier({
         {/* Public product share image — always first on mobile; alternates on desktop */}
         <div
           className={cn(
-            "border-charcoal-grey/15 relative border-b md:border-b-0",
+            "border-charcoal-grey/15 bg-charcoal-grey/5 relative flex border-b p-3 sm:p-4 md:items-center md:border-b-0",
             imageFirstOnDesktop
               ? "md:order-1 md:border-r"
               : "md:order-2 md:border-l",
           )}
         >
-          <div className="bg-charcoal-grey/5 p-3 sm:p-4">
-            <div className="border-charcoal-grey/10 relative aspect-40/21 w-full overflow-hidden rounded-xl border bg-white">
-              <Image
-                src={project.imageSrc}
-                alt={project.imageAlt}
-                fill
-                unoptimized
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 62vw"
-                priority={index === 0}
-              />
-            </div>
+          <div className="border-charcoal-grey/10 relative aspect-40/21 w-full overflow-hidden rounded-xl border bg-white">
+            <Image
+              src={project.imageSrc}
+              alt={project.imageAlt}
+              fill
+              unoptimized
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 62vw"
+              priority={index === 0}
+            />
           </div>
         </div>
 
@@ -81,7 +79,7 @@ function ProjectDossier({
           <div className="border-charcoal-grey/15 mt-10 grid grid-cols-2 gap-6 border-t pt-6">
             <div>
               <p className="text-charcoal-grey/45 mb-2 text-[10px] tracking-[0.2em] uppercase">
-                Surface
+                Product Type
               </p>
               <p className="text-charcoal-grey text-sm font-medium">
                 {project.surface}

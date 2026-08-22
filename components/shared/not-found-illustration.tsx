@@ -17,12 +17,12 @@ export function NotFoundIllustration() {
     >
       {/* Soft brand glow behind the frame */}
       <motion.div
-        className="pointer-events-none absolute inset-8 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.18)_0%,transparent_70%)]"
+        className="pointer-events-none absolute inset-4 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.18)_0%,transparent_70%)] lg:inset-6"
         animate={{ opacity: [0.55, 0.9, 0.55], scale: [1, 1.04, 1] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="border-charcoal-grey/10 relative overflow-hidden rounded-2xl border bg-white">
+      <div className="border-charcoal-grey/10 relative flex h-full w-full flex-col overflow-hidden rounded-2xl border bg-white">
         {/* Dot grid */}
         <div
           className="pointer-events-none absolute inset-0 opacity-70"
@@ -43,10 +43,10 @@ export function NotFoundIllustration() {
           </span>
         </div>
 
-        <div className="relative px-5 pt-8 pb-6 sm:px-8 sm:pt-10 sm:pb-8">
+        <div className="relative flex flex-1 items-center px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
           {/* Oversized 404 mark */}
-          <div className="pointer-events-none absolute top-4 right-3 select-none sm:top-5 sm:right-5">
-            <span className="font-display text-charcoal-grey/[0.06] text-[5.5rem] leading-none font-semibold tracking-tighter sm:text-[7rem]">
+          <div className="pointer-events-none absolute inset-x-5 top-6 flex justify-end select-none sm:inset-x-8 sm:top-8 lg:inset-x-10 lg:top-10">
+            <span className="font-display text-charcoal-grey/6 text-[5.5rem] leading-none font-semibold tracking-tighter sm:text-[7rem] lg:text-[8.5rem] xl:text-[10rem]">
               404
             </span>
           </div>
@@ -55,7 +55,9 @@ export function NotFoundIllustration() {
             viewBox="0 0 360 220"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="relative z-10 h-auto w-full"
+            className="relative z-10 aspect-360/220 w-full"
+            preserveAspectRatio="xMidYMid meet"
+            aria-label="404 illustration"
           >
             {/* Path: solid hops */}
             <path

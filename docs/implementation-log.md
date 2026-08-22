@@ -15,6 +15,22 @@ diary or a substitute for Git history.
 
 Add newest entries immediately below this guidance.
 
+## 2026-08-22 — Selected-work taxonomy and media framing
+
+- Changed: clarified every record's category as its operating context and its
+  Product Type as the product Vextra delivered: WardWise is a campaign operations
+  platform for civic field operations, Q-DAS Global is a corporate website for
+  ICT services, and iProduce Africa remains a web platform in agribusiness
+  marketplace work. Vertically centred each desktop project image within its
+  pale media panel, removing unused white space when the information column is
+  taller; mobile retains its natural stacked order.
+- Verified: targeted formatting; `pnpm lint`; `pnpm typecheck`; `pnpm test`;
+  desktop and 390px selected-work browser checks with no horizontal overflow.
+- Blocked: `pnpm build` reaches the existing Google Font requests but cannot
+  fetch Funnel Display or Geist in this network-restricted environment.
+- Follow-up: production-provider, deployed-domain, and approved live-delivery
+  checks remain outside this local content and presentation update.
+
 ## 2026-08-21 — Selected-work responsive verification
 
 - Changed: served the selected-work public share images directly from `public/`
