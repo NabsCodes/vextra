@@ -29,15 +29,23 @@ export function EmailShell({
   preview,
   eyebrow,
   audience,
+  disclaimer,
   children,
 }: {
   preview: string;
   /** Required for internal mail; ignored for subscriber. */
   eyebrow?: string;
   audience: "internal" | "subscriber";
+  /** Subscriber only. Omit for launch-list default; pass false to hide. */
+  disclaimer?: string | false;
   children: ReactNode;
 }) {
   const isInternal = audience === "internal";
+  const subscriberDisclaimer =
+    disclaimer === false
+      ? null
+      : (disclaimer ??
+        "You received this email because you signed up for the Vextra website launch list.");
 
   return (
     <Html lang="en">
@@ -103,11 +111,8 @@ export function EmailShell({
           </Section>
         </Container>
 
-        {!isInternal ? (
-          <Text style={styles.disclaimer}>
-            You received this email because you signed up for the Vextra website
-            launch list.
-          </Text>
+        {!isInternal && subscriberDisclaimer ? (
+          <Text style={styles.disclaimer}>{subscriberDisclaimer}</Text>
         ) : null}
       </Body>
     </Html>

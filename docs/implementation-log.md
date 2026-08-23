@@ -15,6 +15,16 @@ diary or a substitute for Git history.
 
 Add newest entries immediately below this guidance.
 
+## 2026-08-23 — Site-launch broadcast email preview
+
+- Changed: added a lean subscriber launch template and React Email preview
+  (`site-launch`) with dual side-by-side CTAs in a soft accent panel, deep-teal
+  secondary button, and a subtle "01 / Now live" section marker. Preview only;
+  no Resend broadcast or waitlist send wiring.
+- Verified: focused email template tests; typecheck; `pnpm email:dev` lists
+  the new preview.
+- Follow-up: wire Resend broadcast when the fuller site deploy is approved.
+
 ## 2026-08-23 — Internal email scanability
 
 - Changed: trimmed launch-list team mail to email + local time + UTC (dropped

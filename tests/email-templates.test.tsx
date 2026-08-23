@@ -1,6 +1,8 @@
 import { render } from "@react-email/render";
 import { describe, expect, it } from "vitest";
 import { EnquiryTeamEmailTemplate } from "@/lib/email/templates/enquiry-team";
+import { GeneralEmailTemplate } from "@/lib/email/templates/general";
+import { SiteLaunchEmailTemplate } from "@/lib/email/templates/site-launch";
 import { TeamNotificationEmailTemplate } from "@/lib/email/templates/team-notification";
 import { WelcomeEmailTemplate } from "@/lib/email/templates/welcome";
 
@@ -51,6 +53,27 @@ describe("React Email templates", () => {
     expect(html).toContain("on the list");
     expect(html).toContain("one email");
     expect(html).toContain("LinkedIn");
+    expect(html).toContain("Follow along");
+  });
+
+  it("renders the general broadcast example", async () => {
+    const html = await render(<GeneralEmailTemplate />);
+
+    expect(html).toContain("An update from Vextra");
+    expect(html).toContain("Studio update");
+    expect(html).toContain("Visit the site");
+    expect(html).toContain("You received this email from Vextra Limited.");
+  });
+
+  it("renders the site-launch broadcast example", async () => {
+    const html = await render(<SiteLaunchEmailTemplate />);
+
+    expect(html).toContain("fuller site is live");
+    expect(html).toContain("Now live");
+    expect(html).toContain("Visit the site");
+    expect(html).toContain("Start a Project");
+    expect(html).toContain("https://vextralimited.com/contact");
+    expect(html).toContain("#2f3a3f");
     expect(html).toContain("Follow along");
   });
 });

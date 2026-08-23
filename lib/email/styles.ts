@@ -7,8 +7,9 @@ export const emailColors = {
   subtle: "#9aa3a7",
   border: "#e2e7e5",
   field: "#f7f9f8",
-  accent: "#16b8a6",
+  accent: "#14b8a6",
   accentSoft: "#dff7f2",
+  deepTeal: "#14a590",
   link: "#087f73",
 } as const;
 
@@ -69,6 +70,28 @@ export const emailMobileStyles = `
     .email-logo { width: 132px !important; height: auto !important; }
     .email-display { font-size: 22px !important; line-height: 1.25 !important; }
     .email-detail-row { padding: 9px 10px !important; }
+    .email-launch-line {
+      display: inline-block !important;
+      width: 28px !important;
+      border-bottom: 2px solid #14b8a6 !important;
+      vertical-align: middle !important;
+      margin-right: 10px !important;
+      line-height: 1px !important;
+      font-size: 1px !important;
+    }
+    .email-cta-column {
+      display: block !important;
+      width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    .email-cta-column-first { padding-bottom: 0 !important; }
+    .email-cta-spacer {
+      display: block !important;
+      height: 10px !important;
+      line-height: 10px !important;
+    }
+    .email-cta-button { display: block !important; width: 100% !important; margin: 0 !important; }
   }
 `;
 
