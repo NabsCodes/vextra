@@ -32,7 +32,8 @@ export function EmailShell({
   children,
 }: {
   preview: string;
-  eyebrow: string;
+  /** Required for internal mail; ignored for subscriber. */
+  eyebrow?: string;
   audience: "internal" | "subscriber";
   children: ReactNode;
 }) {
@@ -63,9 +64,11 @@ export function EmailShell({
                   style={styles.logo}
                 />
               </Section>
-              <Section style={styles.internalBand}>
-                <Text style={styles.internalEyebrow}>{eyebrow}</Text>
-              </Section>
+              {eyebrow ? (
+                <Section style={styles.internalBand}>
+                  <Text style={styles.internalEyebrow}>{eyebrow}</Text>
+                </Section>
+              ) : null}
             </>
           ) : (
             <Section style={styles.subscriberHeader} align="center">

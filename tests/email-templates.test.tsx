@@ -45,7 +45,9 @@ describe("React Email templates", () => {
   it("renders the subscriber welcome example", async () => {
     const html = await render(<WelcomeEmailTemplate />);
 
-    expect(html).toContain("Thanks for joining us");
+    expect(html).toContain("on the list");
+    expect(html).toContain("one email");
     expect(html).toContain("LinkedIn");
+    expect(html).toContain("Follow along");
   });
 });
