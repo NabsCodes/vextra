@@ -15,6 +15,16 @@ diary or a substitute for Git history.
 
 Add newest entries immediately below this guidance.
 
+## 2026-08-23 — Social OG image sizing for Instagram DMs
+
+- Changed: replaced the oversized right-weighted share images with centered
+  `2400×1260` Open Graph and `2400×1200` Twitter assets; metadata now emits
+  explicit `og:image` width, height, and alt (same pattern as iProduce).
+- Verified: image dimensions; `pnpm typecheck`; build head includes
+  `og:image:width` / `og:image:height`.
+- Follow-up: after deploy, refresh Meta Sharing Debugger / re-share in IG DMs
+  to clear the old cached card.
+
 ## 2026-08-23 — Site-launch broadcast email preview
 
 - Changed: added a lean subscriber launch template and React Email preview

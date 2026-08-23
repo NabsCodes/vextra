@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import { SITE_URL, seoContent, type SeoRoute } from "@/content/seo";
 
-const socialImages = {
-  openGraph: "/opengraph-image.jpg",
-  twitter: "/twitter-image.jpg",
+const openGraphImage = {
+  url: "/opengraph-image.jpg",
+  width: 2400,
+  height: 1260,
+  alt: seoContent.site.name,
+} as const;
+
+const twitterImage = {
+  url: "/twitter-image.jpg",
+  width: 2400,
+  height: 1200,
+  alt: seoContent.site.name,
 } as const;
 
 export function createPageMetadata(route: SeoRoute): Metadata {
@@ -21,14 +30,14 @@ export function createPageMetadata(route: SeoRoute): Metadata {
       siteName: seoContent.site.name,
       title: route.title,
       description: route.description,
-      images: [socialImages.openGraph],
+      images: [openGraphImage],
     },
     twitter: {
       card: "summary_large_image",
       title: route.title,
       description: route.description,
       creator: seoContent.site.twitterCreator,
-      images: [socialImages.twitter],
+      images: [twitterImage.url],
     },
   };
 }
@@ -52,14 +61,14 @@ export const rootMetadata: Metadata = {
     siteName: seoContent.site.name,
     title: seoContent.site.defaultTitle,
     description: seoContent.site.socialDescription,
-    images: [socialImages.openGraph],
+    images: [openGraphImage],
   },
   twitter: {
     card: "summary_large_image",
     title: seoContent.site.defaultTitle,
     description: seoContent.site.socialDescription,
     creator: seoContent.site.twitterCreator,
-    images: [socialImages.twitter],
+    images: [twitterImage.url],
   },
   icons: {
     icon: "/icon.png",

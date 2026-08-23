@@ -86,13 +86,16 @@ visitors remain inside the public brand shell. Presentation copy lives in
 
 ## Social Sharing
 
-The current social images are approved assets:
+Current share images:
 
-- `app/opengraph-image.jpg`
-- `app/twitter-image.jpg`
+- `app/opengraph-image.jpg` — `2400×1260` (1.91:1), brand lockup centered for
+  Instagram center-crop safety
+- `app/twitter-image.jpg` — `2400×1200`
 
-Do not regenerate or replace them as part of a metadata refactor. Verify that
-route metadata inherits or references them correctly.
+`lib/metadata.ts` emits `og:image:width`, `og:image:height`, and `og:image:alt`
+so Meta/Instagram can size the card before downloading the file. Prefer these
+canonical sizes (or exact 2×) when replacing the assets. Keep critical content
+inside the center square safe zone of the Open Graph frame.
 
 ## Structured Data
 

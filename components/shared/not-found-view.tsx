@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
+import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa6";
 import { NotFoundIllustration } from "@/components/shared/not-found-illustration";
 import { systemPagesContent } from "@/content/system-pages";
