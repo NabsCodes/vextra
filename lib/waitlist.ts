@@ -109,7 +109,6 @@ async function sendTeamNotification(
 
   const notificationEmail = await buildTeamNotificationEmail({
     subscriberEmail: email,
-    signupId,
     signedUpAt: signup.createdAt,
     teamTimeZone: TEAM_NOTIFICATION_TIMEZONE,
     teamLocale: TEAM_NOTIFICATION_LOCALE,

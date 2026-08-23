@@ -11,7 +11,6 @@ function formatSignedUpAt(date: Date): string {
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-    second: "2-digit",
     hour12: true,
     timeZone: "UTC",
     timeZoneName: "short",
@@ -34,7 +33,6 @@ function formatSignedUpAtForTeam({
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit",
       hour12: true,
       timeZone,
       timeZoneName: "short",
@@ -46,13 +44,11 @@ function formatSignedUpAtForTeam({
 
 export function buildTeamNotificationEmail({
   subscriberEmail,
-  signupId,
   signedUpAt,
   teamTimeZone,
   teamLocale,
 }: {
   subscriberEmail: string;
-  signupId: string;
   signedUpAt: Date;
   teamTimeZone: string;
   teamLocale: string;
@@ -60,15 +56,12 @@ export function buildTeamNotificationEmail({
   return renderEmailTemplate(
     createElement(TeamNotificationEmailTemplate, {
       subscriberEmail,
-      signupId,
       signedUpAtLocal: formatSignedUpAtForTeam({
         date: signedUpAt,
         locale: teamLocale,
         timeZone: teamTimeZone,
       }),
       signedUpAtUtc: formatSignedUpAt(signedUpAt),
-      signedUpAtIso: signedUpAt.toISOString(),
-      teamTimeZone,
     }),
   );
 }

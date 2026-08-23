@@ -23,6 +23,8 @@ describe("React Email templates", () => {
     ]);
 
     expect(html).toContain("New project enquiry");
+    expect(html).toContain("Ada Okonkwo wants to talk");
+    expect(html).not.toContain("Not provided");
     expect(text).toContain("ada@example.com");
   });
 
@@ -30,16 +32,17 @@ describe("React Email templates", () => {
     const html = await render(
       <TeamNotificationEmailTemplate
         subscriberEmail="ada@example.com"
-        signupId="preview-signup-01"
         signedUpAtLocal="August 21, 2026 at 4:30 PM GMT+1"
         signedUpAtUtc="August 21, 2026 at 3:30 PM UTC"
-        signedUpAtIso="2026-08-21T15:30:00.000Z"
-        teamTimeZone="Africa/Lagos"
       />,
     );
 
     expect(html).toContain("New launch-list signup");
-    expect(html).toContain("preview-signup-01");
+    expect(html).toContain("ada@example.com");
+    expect(html).toContain("Signed up");
+    expect(html).toContain("UTC");
+    expect(html).not.toContain("Signup ID");
+    expect(html).not.toContain("Timestamp ISO");
   });
 
   it("renders the subscriber welcome example", async () => {

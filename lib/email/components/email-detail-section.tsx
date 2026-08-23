@@ -10,11 +10,14 @@ export type EmailDetailField = {
 export function EmailDetailSection({ fields }: { fields: EmailDetailField[] }) {
   return (
     <Section style={styles.card}>
-      {fields.map((field) => (
+      {fields.map((field, index) => (
         <Section
           key={field.label}
           className="email-detail-row"
-          style={styles.row}
+          style={{
+            ...styles.row,
+            ...(index === fields.length - 1 ? styles.rowLast : null),
+          }}
         >
           <Text style={styles.label}>{field.label}</Text>
           {field.href ? (
@@ -38,8 +41,11 @@ const styles = {
     borderRadius: "10px",
   },
   row: {
-    padding: "10px 12px",
+    padding: "11px 14px",
     borderBottom: `1px solid ${emailColors.border}`,
+  },
+  rowLast: {
+    borderBottom: "none",
   },
   label: {
     margin: "0 0 3px",

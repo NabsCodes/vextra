@@ -15,6 +15,14 @@ diary or a substitute for Git history.
 
 Add newest entries immediately below this guidance.
 
+## 2026-08-23 — Internal email scanability
+
+- Changed: trimmed launch-list team mail to email + local time + UTC (dropped
+  ISO and signup ID from the template); tightened enquiry copy and hid empty
+  company fields; removed trailing detail-row borders.
+- Verified: focused email template tests; typecheck.
+- Follow-up: confirm in `pnpm email:dev` before the next live send.
+
 ## 2026-08-23 — Welcome email hybrid (old look + current shell)
 
 - Changed: restored the stronger subscriber presentation from the pre-refactor

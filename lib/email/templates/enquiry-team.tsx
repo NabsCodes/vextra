@@ -23,7 +23,7 @@ export function EnquiryTeamEmailTemplate(props: EnquiryTeamEmailProps) {
         New project enquiry
       </Text>
       <Text style={emailType.lead}>
-        Someone wants to discuss a project or partnership with Vextra.
+        {`${props.name} wants to talk about a project with Vextra.`}
       </Text>
       <EmailDetailSection
         fields={[
@@ -33,12 +33,14 @@ export function EnquiryTeamEmailTemplate(props: EnquiryTeamEmailProps) {
             value: props.email,
             href: `mailto:${props.email}`,
           },
-          { label: "Company", value: props.company || "Not provided" },
-          { label: "Service interest", value: props.serviceLabel },
-          ...(props.serviceDetails
-            ? [{ label: "What they need", value: props.serviceDetails }]
+          ...(props.company.trim()
+            ? [{ label: "Company", value: props.company.trim() }]
             : []),
-          { label: "Project details", value: props.message },
+          { label: "Interest", value: props.serviceLabel },
+          ...(props.serviceDetails.trim()
+            ? [{ label: "What they need", value: props.serviceDetails.trim() }]
+            : []),
+          { label: "Message", value: props.message },
         ]}
       />
     </EmailShell>

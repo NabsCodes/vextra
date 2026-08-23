@@ -5,11 +5,8 @@ import { emailType } from "@/lib/email/styles";
 
 export type TeamNotificationEmailProps = {
   subscriberEmail: string;
-  signupId: string;
   signedUpAtLocal: string;
   signedUpAtUtc: string;
-  signedUpAtIso: string;
-  teamTimeZone: string;
 };
 
 export function TeamNotificationEmailTemplate(
@@ -25,22 +22,23 @@ export function TeamNotificationEmailTemplate(
         New launch-list signup
       </Text>
       <Text style={emailType.lead}>
-        A new subscriber joined the Vextra website launch list.
+        Someone just joined the website launch list.
       </Text>
       <EmailDetailSection
         fields={[
           {
-            label: "Subscriber email",
+            label: "Email",
             value: props.subscriberEmail,
             href: `mailto:${props.subscriberEmail}`,
           },
           {
-            label: `Signed up (${props.teamTimeZone})`,
+            label: "Signed up",
             value: props.signedUpAtLocal,
           },
-          { label: "Signed up (UTC)", value: props.signedUpAtUtc },
-          { label: "Timestamp ISO", value: props.signedUpAtIso },
-          { label: "Signup ID", value: props.signupId },
+          {
+            label: "UTC",
+            value: props.signedUpAtUtc,
+          },
         ]}
       />
     </EmailShell>
