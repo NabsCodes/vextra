@@ -15,6 +15,16 @@ diary or a substitute for Git history.
 
 Add newest entries immediately below this guidance.
 
+## 2026-08-23 — Welcome email hybrid (old look + current shell)
+
+- Changed: restored the stronger subscriber presentation from the pre-refactor
+  welcome template — charcoal header with `secondary-logo-02`, tagline, light
+  footer, social row, and outside-card disclaimer — while keeping the shared
+  `EmailShell`, clearer one-email copy, and light-safe `full-color-logo` for
+  internal templates.
+- Verified: logo/surface pairing check; targeted formatting and typecheck.
+- Follow-up: confirm in `pnpm email:dev` before the next live send.
+
 ## 2026-08-22 — Selected-work taxonomy and media framing
 
 - Changed: clarified every record's category as its operating context and its

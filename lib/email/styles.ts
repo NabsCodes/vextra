@@ -29,10 +29,10 @@ export const emailLayout = {
     overflow: "hidden" as const,
     backgroundColor: emailColors.card,
     border: `1px solid ${emailColors.border}`,
-    borderRadius: "8px",
+    borderRadius: "12px",
   },
   body: {
-    padding: "28px 24px 32px",
+    padding: "34px 28px 30px",
     backgroundColor: emailColors.card,
   },
 } as const;

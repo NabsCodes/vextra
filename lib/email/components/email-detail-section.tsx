@@ -35,7 +35,7 @@ const styles = {
     overflow: "hidden" as const,
     backgroundColor: emailColors.field,
     border: `1px solid ${emailColors.border}`,
-    borderRadius: "6px",
+    borderRadius: "10px",
   },
   row: {
     padding: "10px 12px",

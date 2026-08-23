@@ -20,7 +20,10 @@ import {
 } from "@/lib/email/styles";
 
 const SITE_URL = "https://vextralimited.com";
-const LOGO_URL = `${SITE_URL}/secondary-logo-02.png`;
+/** White wordmark — only on charcoal / dark surfaces. */
+const LOGO_ON_DARK = `${SITE_URL}/secondary-logo-02.png`;
+/** Charcoal wordmark — only on white / light surfaces. */
+const LOGO_ON_LIGHT = `${SITE_URL}/full-color-logo.png`;
 
 export function EmailShell({
   preview,
@@ -48,30 +51,40 @@ export function EmailShell({
       </Preview>
       <Body style={emailLayout.canvas}>
         <Container style={emailLayout.card}>
-          <Section style={styles.logoBand} align="center">
-            <Img
-              src={LOGO_URL}
-              alt={siteContent.company.name}
-              width="140"
-              height="38"
-              className="email-logo"
-              style={styles.logo}
-            />
-          </Section>
-          <Section
-            style={isInternal ? styles.internalBand : styles.subscriberBand}
-          >
-            <Text
-              style={
-                isInternal ? styles.internalEyebrow : styles.subscriberEyebrow
-              }
-            >
-              {eyebrow}
-            </Text>
-          </Section>
+          {isInternal ? (
+            <>
+              <Section style={styles.lightLogoBand} align="center">
+                <Img
+                  src={LOGO_ON_LIGHT}
+                  alt={siteContent.company.name}
+                  width="140"
+                  height="38"
+                  className="email-logo"
+                  style={styles.logo}
+                />
+              </Section>
+              <Section style={styles.internalBand}>
+                <Text style={styles.internalEyebrow}>{eyebrow}</Text>
+              </Section>
+            </>
+          ) : (
+            <Section style={styles.subscriberHeader} align="center">
+              <Img
+                src={LOGO_ON_DARK}
+                alt={siteContent.company.name}
+                width="140"
+                height="38"
+                className="email-logo"
+                style={styles.logo}
+              />
+              <Text style={styles.tagline}>{siteContent.company.tagline}</Text>
+            </Section>
+          )}
+
           <Section className="email-body" style={emailLayout.body}>
             {children}
           </Section>
+
           <Section style={isInternal ? styles.internalFooter : styles.footer}>
             <Text style={styles.footerText}>
               {siteContent.company.name} ·{" "}
@@ -86,28 +99,44 @@ export function EmailShell({
             </Text>
           </Section>
         </Container>
+
+        {!isInternal ? (
+          <Text style={styles.disclaimer}>
+            You received this email because you signed up for the Vextra website
+            launch list.
+          </Text>
+        ) : null}
       </Body>
     </Html>
   );
 }
 
 const styles = {
-  logoBand: {
+  lightLogoBand: {
     padding: "20px 22px 18px",
     textAlign: "center" as const,
     backgroundColor: emailColors.card,
     borderBottom: `1px solid ${emailColors.border}`,
   },
+  subscriberHeader: {
+    padding: "28px 24px",
+    textAlign: "center" as const,
+    backgroundColor: emailColors.charcoal,
+  },
   logo: { display: "block", margin: "0 auto" },
+  tagline: {
+    margin: "10px 0 0",
+    color: "rgba(255,255,255,0.65)",
+    fontFamily: emailSansFamily,
+    fontSize: "11px",
+    letterSpacing: "0.18em",
+    lineHeight: "1.4",
+    textTransform: "uppercase" as const,
+  },
   internalBand: {
     padding: "10px 20px 11px",
     backgroundColor: emailColors.field,
     borderBottom: `1px solid ${emailColors.border}`,
-  },
-  subscriberBand: {
-    padding: "12px 20px 14px",
-    textAlign: "center" as const,
-    backgroundColor: emailColors.charcoal,
   },
   internalEyebrow: {
     margin: "0",
@@ -118,16 +147,6 @@ const styles = {
     fontSize: "11px",
     fontWeight: "600",
     letterSpacing: "0.08em",
-    lineHeight: "1.4",
-    textTransform: "uppercase" as const,
-  },
-  subscriberEyebrow: {
-    margin: "0",
-    color: emailColors.accentSoft,
-    fontFamily: emailSansFamily,
-    fontSize: "11px",
-    fontWeight: "600",
-    letterSpacing: "0.1em",
     lineHeight: "1.4",
     textTransform: "uppercase" as const,
   },
@@ -157,4 +176,12 @@ const styles = {
     lineHeight: "1.5",
   },
   footerLink: { color: emailColors.accent, textDecoration: "none" },
+  disclaimer: {
+    margin: "18px 0 0",
+    textAlign: "center" as const,
+    color: emailColors.subtle,
+    fontFamily: emailSansFamily,
+    fontSize: "11px",
+    lineHeight: "1.5",
+  },
 };
