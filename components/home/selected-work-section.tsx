@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import { homePageContent } from "@/content/home";
 import { SELECTED_PROJECTS, type SelectedProject } from "@/content/work";
@@ -94,6 +95,17 @@ function ProjectDossier({
               </p>
             </div>
           </div>
+
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-charcoal-grey/65 hover:text-vextra-green mt-8 inline-flex w-fit items-center gap-2 text-sm font-medium tracking-wide transition-colors duration-300"
+          >
+            <span>{project.liveLabel}</span>
+            <ArrowUpRight className="h-4 w-4" aria-hidden />
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
         </div>
       </div>
     </motion.article>

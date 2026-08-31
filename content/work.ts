@@ -8,6 +8,8 @@ export type SelectedProject = {
   role: string;
   imageSrc: string;
   imageAlt: string;
+  liveUrl: string;
+  liveLabel: string;
 };
 
 /**
@@ -26,6 +28,8 @@ export const SELECTED_PROJECTS: SelectedProject[] = [
     role: "Product design and full-stack engineering",
     imageSrc: "/work/wardwise-share.jpg",
     imageAlt: "WardWise public share image",
+    liveUrl: "https://wardwise.ng",
+    liveLabel: "Visit wardwise.ng",
   },
   {
     id: "q-das-global",
@@ -38,6 +42,8 @@ export const SELECTED_PROJECTS: SelectedProject[] = [
     role: "Website design and engineering",
     imageSrc: "/work/q-das-share.jpg",
     imageAlt: "Q-DAS Global public share image",
+    liveUrl: "https://qdasglobal.com",
+    liveLabel: "Visit qdasglobal.com",
   },
   {
     id: "iproduce-africa",
@@ -50,5 +56,7 @@ export const SELECTED_PROJECTS: SelectedProject[] = [
     role: "Design and engineering for the producer marketplace",
     imageSrc: "/work/iproduce-africa-share.jpg",
     imageAlt: "iProduce Africa public share image",
+    liveUrl: "https://iproduceafrica.com",
+    liveLabel: "Visit iproduceafrica.com",
   },
 ];

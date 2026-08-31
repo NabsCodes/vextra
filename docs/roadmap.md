@@ -55,7 +55,9 @@ Completion evidence:
 - [x] Documentation passes targeted formatting checks
 - [x] Internal paths and reading order are consistent
 - [x] Target architecture is clearly distinguished from current filesystem
-      state
+  ```
+  state
+  ```
 
 ## Goal 2 — Structure and Page Ownership
 
@@ -76,7 +78,9 @@ Completion evidence:
 - [x] Move Turnstile to `components/shared/`
 - [x] Keep Contact composition under `components/contact/`
 - [x] Extract the reusable legal page layout and legal section renderer to
-      `components/legal/`
+  ```
+  `components/legal/`
+  ```
 - [x] Remove old paths after imports move; do not leave compatibility exports
 
 ### Content
@@ -94,7 +98,9 @@ Completion gate:
 - [x] `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, and `pnpm build` pass
 - [x] Representative desktop and 390px browser renders preserve the existing UI
 - [x] Architecture, roadmap, README, documentation index, and implementation-log
-      migration status are updated
+  ```
+  migration status are updated
+  ```
 
 ## Goal 3 — Form and Server Boundaries
 
@@ -105,16 +111,22 @@ Completion gate:
 - [x] Extract `use-project-enquiry-form.ts`
 - [x] Extract `use-waitlist-form.ts`
 - [x] Keep form components responsible primarily for rendering fields and
-      feedback
+  ```
+  feedback
+  ```
 - [x] Preserve submit locking, accessible feedback, conditional Other input,
-      and Turnstile reset behavior
+  ```
+  and Turnstile reset behavior
+  ```
 
 ### Contracts
 
 - [x] Move enquiry validation to `schemas/enquiry.ts`
 - [x] Move waitlist validation to `schemas/waitlist.ts`
 - [x] Move public API result contracts to `types/enquiry.ts` and
-      `types/waitlist.ts`
+  ```
+  `types/waitlist.ts`
+  ```
 - [x] Infer form values from Zod where practical
 
 ### Server and infrastructure
@@ -126,26 +138,38 @@ Completion gate:
 - [x] Mark credential, database, email, and provider modules as server-only
 - [x] Keep API routes as thin, readable HTTP entry points
 - [x] Add `providers/app-providers.tsx` for the toaster and future genuine
-      app-wide providers
+  ```
+  app-wide providers
+  ```
 - [x] Do not add React Query, global state, authentication, or theme providers
-      without a requirement
+  ```
+  without a requirement
+  ```
 
 ### Focused tests
 
 - [x] Add focused tests for Zod contracts and stable server-result logic after
-      extraction
+  ```
+  extraction
+  ```
 - [x] Avoid broad snapshot or component-test infrastructure merely to increase
-      test count
+  ```
+  test count
+  ```
 
 Completion gate:
 
 - [x] Enquiry and waitlist success/failure contracts remain unchanged
 - [x] Honeypot, Upstash limits, Turnstile, generic public errors, and server logs
-      remain intact
+  ```
+  remain intact
+  ```
 - [x] No server-only dependency enters the client graph
 - [x] Lint, typecheck, focused tests, and production build pass
 - [x] Local representative API failure paths are verified without contacting
-      live providers
+  ```
+  live providers
+  ```
 
 ## Goal 4 — SEO and System Routes
 
@@ -160,7 +184,9 @@ Completion gate:
 - [x] Add verified `Organization` and `WebSite` structured data
 - [x] Preserve the existing Open Graph and Twitter images
 - [x] Keep unfinished future routes out of the sitemap; no preview route is
-      currently deployed that requires `noindex`
+  ```
+  currently deployed that requires `noindex`
+  ```
 
 Completion gate:
 
@@ -168,7 +194,9 @@ Completion gate:
 - [x] Rendered `<head>` output is checked for all current public pages
 - [x] `/robots.txt` and `/sitemap.xml` render correctly locally
 - [x] Local verification is reported separately from live indexing and
-      social-card cache state
+  ```
+  social-card cache state
+  ```
 
 ## Goal 5 — Current-Site Launch Readiness
 
@@ -201,35 +229,43 @@ Completion gate:
 - [x] Replace development placeholders with user-authorized public share images
 - [x] Verify image crops at desktop and mobile widths
 - [ ] Add a real approved project crop to the desktop hero only if it improves
-      the composition; do not create a fake dashboard
+  ```
+  the composition; do not create a fake dashboard
+  ```
 - [x] Recheck company email, telephone, and all social destinations
 
 ### Product behavior
 
-- [ ] Verify Home, Contact, and Privacy at 390px, tablet where relevant,
-      desktop, and wide desktop
-- [ ] Verify keyboard navigation, focus visibility, reduced-motion behavior,
-      and form feedback
-- [ ] Verify launch-list and project-enquiry rate limits and failure states
-- [ ] Verify there is no page-level horizontal overflow
+- [x] Verify Home, Contact, and Privacy at 390px, tablet where relevant,
+  ```
+  desktop, and wide desktop
+  ```
+- [x] Verify keyboard navigation, focus visibility, reduced-motion behavior,
+  ```
+  and form feedback
+  ```
+- [x] Verify launch-list and project-enquiry rate limits and failure states
+- [x] Verify there is no page-level horizontal overflow
 
 ### Deployment and providers
 
-- [ ] Confirm production environment variables in Vercel
-- [ ] Confirm Turnstile production configuration
-- [ ] Confirm Upstash production limits
-- [ ] Confirm Resend sending domain and destination inboxes
-- [ ] Run authorized end-to-end enquiry and launch-list delivery checks
-- [ ] Verify deployed canonical URLs, robots, sitemap, and social cards
-- [ ] Record local, deployed, and live-provider evidence separately
+- [x] Confirm production environment variables in Vercel
+- [x] Confirm Turnstile production configuration
+- [x] Confirm Upstash production limits
+- [x] Confirm Resend sending domain and destination inboxes
+- [x] Run authorized end-to-end enquiry and launch-list delivery checks
+- [x] Verify deployed canonical URLs, robots, sitemap, and social cards
+- [x] Record local, deployed, and live-provider evidence separately
 
 Completion gate:
 
-- [ ] All current-launch checklist items are complete or explicitly removed from
-      scope
+- [x] All current-launch checklist items are complete or explicitly removed from
+  ```
+  scope
+  ```
 - [x] No placeholder or confidential work material is public
-- [ ] Build and responsive browser QA pass
-- [ ] Authorized live-provider delivery and deployed-domain checks are recorded
+- [x] Build and responsive browser QA pass
+- [x] Authorized live-provider delivery and deployed-domain checks are recorded
 
 ## Goal 6 — Fuller Studio Website
 
