@@ -9,12 +9,6 @@ corepack enable
 # Refresh dependencies exactly from the committed lockfile.
 pnpm install --frozen-lockfile
 
-# Apply pending Drizzle migrations only when a database is configured.
-# DATABASE_URL is injected as a Cloud Agent secret. When it is absent (e.g. an
-# agent working on non-database changes), skip cleanly so install still succeeds.
-if [ -n "${DATABASE_URL:-}" ]; then
-  echo "[install] DATABASE_URL detected — applying Drizzle migrations."
-  pnpm db:migrate
-else
-  echo "[install] DATABASE_URL not set — skipping database migrations."
-fi
+# Database migrations are intentionally NOT run here. The injected DATABASE_URL
+# may point at a shared database, and migrations are an explicit developer action
+# (`pnpm db:migrate`), not per-boot setup.
