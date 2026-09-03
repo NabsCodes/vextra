@@ -15,6 +15,23 @@ diary or a substitute for Git history.
 
 Add newest entries immediately below this guidance.
 
+## 2026-09-03 — Cloud Agent development environment
+
+- Changed: added a repository-managed Cloud Agent environment
+  (`.cursor/environment.json` + idempotent `.cursor/install.sh`) that refreshes
+  dependencies from the lockfile, applies Drizzle migrations only when
+  `DATABASE_URL` is present, runs `pnpm dev` on port 3000, and exposes the web
+  port. No application code changed.
+- Verified: `pnpm install` idempotence; `pnpm db:migrate`; `pnpm lint`;
+  `pnpm typecheck`; `pnpm test` (12 passed); `pnpm build`; dev server serving
+  Home, Contact, and Privacy (HTTP 200); and a real `/api/waitlist` submission
+  that persisted a `waitlist_signups` row (graceful email degradation with
+  placeholder provider keys).
+- Follow-up: add `DATABASE_URL`, `RESEND_API_KEY`, `UPSTASH_REDIS_REST_URL`,
+  `UPSTASH_REDIS_REST_TOKEN`, `TURNSTILE_SECRET_KEY`, and
+  `NEXT_PUBLIC_TURNSTILE_SITE_KEY` as Cloud Agent secrets for full form and
+  delivery flows.
+
 ## 2026-08-23 — Social OG image sizing for Instagram DMs
 
 - Changed: replaced the oversized right-weighted share images with centered
